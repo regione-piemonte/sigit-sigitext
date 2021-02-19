@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="sigittext-prod" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" resourceRoot="" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="sigitextSigitextSoapBinding" type="wsdl" bindingName="{http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext}sigitextSigitextSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext?wsdl"><con:part><con:url>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" xmlns:intf="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://api.coopdiag.csi.it" xmlns:tns2="urn:sigitextSigitext" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+  <wsdl:types>
+    <schema targetNamespace="http://api.coopdiag.csi.it" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext"/>
+      <import namespace="urn:sigitextSigitext"/>
+      <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+      <complexType name="ResourceType">
+        <sequence>
+          <element name="cod" nillable="true" type="soapenc:string"/>
+          <element name="descr" nillable="true" type="soapenc:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="CalledResource">
+        <sequence>
+          <element name="codRisorsa" nillable="true" type="soapenc:string"/>
+          <element name="codSistema" nillable="true" type="soapenc:string"/>
+          <element name="tipoRisorsa" nillable="true" type="tns1:ResourceType"/>
+        </sequence>
+      </complexType>
+      <complexType name="Outcome">
+        <sequence>
+          <element name="eccezione" nillable="true" type="tns2:CSIException"/>
+          <element name="messaggio" nillable="true" type="soapenc:string"/>
+          <element name="status" type="xsd:int"/>
+        </sequence>
+      </complexType>
+      <complexType name="InvocationNode">
+        <sequence>
+          <element name="childs" nillable="true" type="impl:ArrayOf_tns1_InvocationNode"/>
+          <element name="outcome" nillable="true" type="tns1:Outcome"/>
+          <element name="resource" nillable="true" type="tns1:CalledResource"/>
+          <element name="startTime" type="xsd:long"/>
+          <element name="stopTime" type="xsd:long"/>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema targetNamespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://api.coopdiag.csi.it"/>
+      <import namespace="urn:sigitextSigitext"/>
+      <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+      <complexType name="ArrayOf_tns1_CalledResource">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:CalledResource[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns1_InvocationNode">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:InvocationNode[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+      <complexType name="ArrayOf_tns2_CodiceDescrizione">
+        <complexContent>
+          <restriction base="soapenc:Array">
+            <attribute ref="soapenc:arrayType" wsdl:arrayType="tns2:CodiceDescrizione[]"/>
+          </restriction>
+        </complexContent>
+      </complexType>
+    </schema>
+    <schema targetNamespace="urn:sigitextSigitext" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext"/>
+      <import namespace="http://api.coopdiag.csi.it"/>
+      <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+      <complexType name="CSIException">
+        <sequence>
+          <element name="nestedExcClassName" nillable="true" type="soapenc:string"/>
+          <element name="nestedExcMsg" nillable="true" type="soapenc:string"/>
+          <element name="stackTraceMessage" nillable="true" type="soapenc:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="SystemException">
+        <complexContent>
+          <extension base="tns2:CSIException">
+            <sequence/>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="CommunicationException">
+        <complexContent>
+          <extension base="tns2:SystemException">
+            <sequence/>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="UserException">
+        <complexContent>
+          <extension base="tns2:CSIException">
+            <sequence/>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="SigitextException">
+        <complexContent>
+          <extension base="tns2:UserException">
+            <sequence/>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="UnrecoverableException">
+        <complexContent>
+          <extension base="tns2:CSIException">
+            <sequence/>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="CodiceDescrizione">
+        <sequence>
+          <element name="codice" nillable="true" type="soapenc:string"/>
+          <element name="descrizione" nillable="true" type="soapenc:string"/>
+        </sequence>
+      </complexType>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="getLuogoResponse">
+    <wsdl:part name="getLuogoReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getTitoloRespRequest"></wsdl:message>
+  <wsdl:message name="getTipoRequest"></wsdl:message>
+  <wsdl:message name="getLocaleInstallRequest"></wsdl:message>
+  <wsdl:message name="getPotenzaImpRequest"></wsdl:message>
+  <wsdl:message name="getTiraggioResponse">
+    <wsdl:part name="getTiraggioReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getTipoResponse">
+    <wsdl:part name="getTipoReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getEvacuazioneRequest"></wsdl:message>
+  <wsdl:message name="getCombustibileResponse">
+    <wsdl:part name="getCombustibileReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getLocaleInstallResponse">
+    <wsdl:part name="getLocaleInstallReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="hasSelfCheckRequest"></wsdl:message>
+  <wsdl:message name="getEvacuazioneResponse">
+    <wsdl:part name="getEvacuazioneReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getTipoInstallRequest"></wsdl:message>
+  <wsdl:message name="testResourcesResponse">
+    <wsdl:part name="testResourcesReturn" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="getTipologiaImpRequest"></wsdl:message>
+  <wsdl:message name="SystemException">
+    <wsdl:part name="fault" type="tns2:SystemException"/>
+  </wsdl:message>
+  <wsdl:message name="getMarcaEnergRequest"></wsdl:message>
+  <wsdl:message name="getTitoloRespResponse">
+    <wsdl:part name="getTitoloRespReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getTipoAppareccResponse">
+    <wsdl:part name="getTipoAppareccReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="selfCheckRequest">
+    <wsdl:part name="in0" type="impl:ArrayOf_tns1_CalledResource"/>
+  </wsdl:message>
+  <wsdl:message name="getTipologiaImpResponse">
+    <wsdl:part name="getTipologiaImpReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getStatoRappResponse">
+    <wsdl:part name="getStatoRappReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getStatoImpResponse">
+    <wsdl:part name="getStatoImpReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getDestinazioneRequest"></wsdl:message>
+  <wsdl:message name="getTipoInstallResponse">
+    <wsdl:part name="getTipoInstallReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part name="fault" type="tns2:UnrecoverableException"/>
+  </wsdl:message>
+  <wsdl:message name="selfCheckResponse">
+    <wsdl:part name="selfCheckReturn" type="tns1:InvocationNode"/>
+  </wsdl:message>
+  <wsdl:message name="getDestinazioneResponse">
+    <wsdl:part name="getDestinazioneReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="SigitextException">
+    <wsdl:part name="fault" type="tns2:SigitextException"/>
+  </wsdl:message>
+  <wsdl:message name="getStatoImpRequest"></wsdl:message>
+  <wsdl:message name="getCombustibileRequest"></wsdl:message>
+  <wsdl:message name="getFluidoRequest"></wsdl:message>
+  <wsdl:message name="getTipoBruciatoreResponse">
+    <wsdl:part name="getTipoBruciatoreReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getPotenzaImpResponse">
+    <wsdl:part name="getPotenzaImpReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="CSIException">
+    <wsdl:part name="fault" type="tns2:CSIException"/>
+  </wsdl:message>
+  <wsdl:message name="getMarcaAppareccRequest"></wsdl:message>
+  <wsdl:message name="getMarcaAppareccResponse">
+    <wsdl:part name="getMarcaAppareccReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getTiraggioRequest"></wsdl:message>
+  <wsdl:message name="getTipoBruciatoreRequest"></wsdl:message>
+  <wsdl:message name="getLuogoRequest"></wsdl:message>
+  <wsdl:message name="getStatoRappRequest"></wsdl:message>
+  <wsdl:message name="hasSelfCheckResponse">
+    <wsdl:part name="hasSelfCheckReturn" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="getFluidoResponse">
+    <wsdl:part name="getFluidoReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="getMarcaEnergResponse">
+    <wsdl:part name="getMarcaEnergReturn" type="impl:ArrayOf_tns2_CodiceDescrizione"/>
+  </wsdl:message>
+  <wsdl:message name="testResourcesRequest"></wsdl:message>
+  <wsdl:message name="getTipoAppareccRequest"></wsdl:message>
+  <wsdl:portType name="sigitextSigitext">
+    <wsdl:operation name="selfCheck" parameterOrder="in0">
+      <wsdl:input message="impl:selfCheckRequest" name="selfCheckRequest"/>
+      <wsdl:output message="impl:selfCheckResponse" name="selfCheckResponse"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+    </wsdl:operation>
+    <wsdl:operation name="hasSelfCheck">
+      <wsdl:input message="impl:hasSelfCheckRequest" name="hasSelfCheckRequest"/>
+      <wsdl:output message="impl:hasSelfCheckResponse" name="hasSelfCheckResponse"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+    </wsdl:operation>
+    <wsdl:operation name="testResources">
+      <wsdl:input message="impl:testResourcesRequest" name="testResourcesRequest"/>
+      <wsdl:output message="impl:testResourcesResponse" name="testResourcesResponse"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getCombustibile">
+      <wsdl:input message="impl:getCombustibileRequest" name="getCombustibileRequest"/>
+      <wsdl:output message="impl:getCombustibileResponse" name="getCombustibileResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getDestinazione">
+      <wsdl:input message="impl:getDestinazioneRequest" name="getDestinazioneRequest"/>
+      <wsdl:output message="impl:getDestinazioneResponse" name="getDestinazioneResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getEvacuazione">
+      <wsdl:input message="impl:getEvacuazioneRequest" name="getEvacuazioneRequest"/>
+      <wsdl:output message="impl:getEvacuazioneResponse" name="getEvacuazioneResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getFluido">
+      <wsdl:input message="impl:getFluidoRequest" name="getFluidoRequest"/>
+      <wsdl:output message="impl:getFluidoResponse" name="getFluidoResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getLocaleInstall">
+      <wsdl:input message="impl:getLocaleInstallRequest" name="getLocaleInstallRequest"/>
+      <wsdl:output message="impl:getLocaleInstallResponse" name="getLocaleInstallResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getLuogo">
+      <wsdl:input message="impl:getLuogoRequest" name="getLuogoRequest"/>
+      <wsdl:output message="impl:getLuogoResponse" name="getLuogoResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getMarcaApparecc">
+      <wsdl:input message="impl:getMarcaAppareccRequest" name="getMarcaAppareccRequest"/>
+      <wsdl:output message="impl:getMarcaAppareccResponse" name="getMarcaAppareccResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getMarcaEnerg">
+      <wsdl:input message="impl:getMarcaEnergRequest" name="getMarcaEnergRequest"/>
+      <wsdl:output message="impl:getMarcaEnergResponse" name="getMarcaEnergResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getPotenzaImp">
+      <wsdl:input message="impl:getPotenzaImpRequest" name="getPotenzaImpRequest"/>
+      <wsdl:output message="impl:getPotenzaImpResponse" name="getPotenzaImpResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getStatoImp">
+      <wsdl:input message="impl:getStatoImpRequest" name="getStatoImpRequest"/>
+      <wsdl:output message="impl:getStatoImpResponse" name="getStatoImpResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getStatoRapp">
+      <wsdl:input message="impl:getStatoRappRequest" name="getStatoRappRequest"/>
+      <wsdl:output message="impl:getStatoRappResponse" name="getStatoRappResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getTipo">
+      <wsdl:input message="impl:getTipoRequest" name="getTipoRequest"/>
+      <wsdl:output message="impl:getTipoResponse" name="getTipoResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getTipoApparecc">
+      <wsdl:input message="impl:getTipoAppareccRequest" name="getTipoAppareccRequest"/>
+      <wsdl:output message="impl:getTipoAppareccResponse" name="getTipoAppareccResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getTipoBruciatore">
+      <wsdl:input message="impl:getTipoBruciatoreRequest" name="getTipoBruciatoreRequest"/>
+      <wsdl:output message="impl:getTipoBruciatoreResponse" name="getTipoBruciatoreResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getTipoInstall">
+      <wsdl:input message="impl:getTipoInstallRequest" name="getTipoInstallRequest"/>
+      <wsdl:output message="impl:getTipoInstallResponse" name="getTipoInstallResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getTiraggio">
+      <wsdl:input message="impl:getTiraggioRequest" name="getTiraggioRequest"/>
+      <wsdl:output message="impl:getTiraggioResponse" name="getTiraggioResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getTitoloResp">
+      <wsdl:input message="impl:getTitoloRespRequest" name="getTitoloRespRequest"/>
+      <wsdl:output message="impl:getTitoloRespResponse" name="getTitoloRespResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getTipologiaImp">
+      <wsdl:input message="impl:getTipologiaImpRequest" name="getTipologiaImpRequest"/>
+      <wsdl:output message="impl:getTipologiaImpResponse" name="getTipologiaImpResponse"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:CSIException" name="CSIException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SigitextException" name="SigitextException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="sigitextSigitextSoapBinding" type="impl:sigitextSigitext">
+    <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="selfCheck">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="selfCheckRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="selfCheckResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="hasSelfCheck">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="hasSelfCheckRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="hasSelfCheckResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="testResources">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="testResourcesRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="testResourcesResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getCombustibile">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getCombustibileRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getCombustibileResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getDestinazione">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getDestinazioneRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getDestinazioneResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getEvacuazione">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getEvacuazioneRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getEvacuazioneResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getFluido">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getFluidoRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getFluidoResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getLocaleInstall">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getLocaleInstallRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getLocaleInstallResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getLuogo">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getLuogoRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getLuogoResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMarcaApparecc">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getMarcaAppareccRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getMarcaAppareccResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getMarcaEnerg">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getMarcaEnergRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getMarcaEnergResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getPotenzaImp">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getPotenzaImpRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getPotenzaImpResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getStatoImp">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getStatoImpRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getStatoImpResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getStatoRapp">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getStatoRappRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getStatoRappResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTipo">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getTipoRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getTipoResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTipoApparecc">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getTipoAppareccRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getTipoAppareccResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTipoBruciatore">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getTipoBruciatoreRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getTipoBruciatoreResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTipoInstall">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getTipoInstallRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getTipoInstallResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTiraggio">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getTiraggioRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getTiraggioResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTitoloResp">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getTitoloRespRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getTitoloRespResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTipologiaImp">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="getTipologiaImpRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://sigitext.interfacecsi.sigitext.sigit.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="getTipologiaImpResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SystemException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="CSIException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="CSIException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="UnrecoverableException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SigitextException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="SigitextException" namespace="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="sigitextSigitextService">
+    <wsdl:port binding="impl:sigitextSigitextSoapBinding" name="sigitextSigitext">
+      <wsdlsoap:address location="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="getCombustibile" bindingOperationName="getCombustibile" type="Request-Response" outputName="getCombustibileResponse" inputName="getCombustibileRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getCombustibile soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getCombustibileRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getDestinazione" bindingOperationName="getDestinazione" type="Request-Response" outputName="getDestinazioneResponse" inputName="getDestinazioneRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getDestinazione soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getDestinazioneRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getEvacuazione" bindingOperationName="getEvacuazione" type="Request-Response" outputName="getEvacuazioneResponse" inputName="getEvacuazioneRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getEvacuazione soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getEvacuazioneRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getFluido" bindingOperationName="getFluido" type="Request-Response" outputName="getFluidoResponse" inputName="getFluidoRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getFluido soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getFluidoRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getLocaleInstall" bindingOperationName="getLocaleInstall" type="Request-Response" outputName="getLocaleInstallResponse" inputName="getLocaleInstallRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getLocaleInstall soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getLocaleInstallRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getLuogo" bindingOperationName="getLuogo" type="Request-Response" outputName="getLuogoResponse" inputName="getLuogoRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getLuogo soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getLuogoRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getMarcaApparecc" bindingOperationName="getMarcaApparecc" type="Request-Response" outputName="getMarcaAppareccResponse" inputName="getMarcaAppareccRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getMarcaApparecc soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getMarcaAppareccRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getMarcaEnerg" bindingOperationName="getMarcaEnerg" type="Request-Response" outputName="getMarcaEnergResponse" inputName="getMarcaEnergRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getMarcaEnerg soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getMarcaEnergRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getPotenzaImp" bindingOperationName="getPotenzaImp" type="Request-Response" outputName="getPotenzaImpResponse" inputName="getPotenzaImpRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getPotenzaImp soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getPotenzaImpRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getStatoImp" bindingOperationName="getStatoImp" type="Request-Response" outputName="getStatoImpResponse" inputName="getStatoImpRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getStatoImp soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getStatoImpRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getStatoRapp" bindingOperationName="getStatoRapp" type="Request-Response" outputName="getStatoRappResponse" inputName="getStatoRappRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getStatoRapp soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getStatoRappRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getTipo" bindingOperationName="getTipo" type="Request-Response" outputName="getTipoResponse" inputName="getTipoRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getTipo soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getTipoRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getTipoApparecc" bindingOperationName="getTipoApparecc" type="Request-Response" outputName="getTipoAppareccResponse" inputName="getTipoAppareccRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getTipoApparecc soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getTipoAppareccRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getTipoBruciatore" bindingOperationName="getTipoBruciatore" type="Request-Response" outputName="getTipoBruciatoreResponse" inputName="getTipoBruciatoreRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getTipoBruciatore soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getTipoBruciatoreRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getTipoInstall" bindingOperationName="getTipoInstall" type="Request-Response" outputName="getTipoInstallResponse" inputName="getTipoInstallRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getTipoInstall soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getTipoInstallRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getTipologiaImp" bindingOperationName="getTipologiaImp" type="Request-Response" outputName="getTipologiaImpResponse" inputName="getTipologiaImpRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getTipologiaImp soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getTipologiaImpRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getTiraggio" bindingOperationName="getTiraggio" type="Request-Response" outputName="getTiraggioResponse" inputName="getTiraggioRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getTiraggio soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getTiraggioRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getTitoloResp" bindingOperationName="getTitoloResp" type="Request-Response" outputName="getTitoloRespResponse" inputName="getTitoloRespRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:getTitoloResp soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/getTitoloRespRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="hasSelfCheck" bindingOperationName="hasSelfCheck" type="Request-Response" outputName="hasSelfCheckResponse" inputName="hasSelfCheckRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:hasSelfCheck soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/hasSelfCheckRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="selfCheck" bindingOperationName="selfCheck" type="Request-Response" outputName="selfCheckResponse" inputName="selfCheckRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:selfCheck soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+         <in0 xsi:type="sig:ArrayOf_tns1_CalledResource" soapenc:arrayType="api:CalledResource[]" xmlns:sig="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext" xmlns:api="http://api.coopdiag.csi.it"/>
+      </sig:selfCheck>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/selfCheckRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="testResources" bindingOperationName="testResources" type="Request-Response" outputName="testResourcesResponse" inputName="testResourcesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sig="http://sigitext.interfacecsi.sigitext.sigit.csi.it">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sig:testResources soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.sistemapiemonte.it/sigitextApplSigitextWsfad/services/sigitextSigitext/sigitextSigitext/testResourcesRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>

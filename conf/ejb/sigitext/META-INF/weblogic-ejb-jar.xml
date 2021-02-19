@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-ejb-jar
+  xmlns="http://www.bea.com/ns/weblogic/90" 
+  xmlns:j2ee="http://java.sun.com/xml/ns/j2ee" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.bea.com/ns/weblogic/90 http://www.bea.com/ns/weblogic/90/weblogic-ejb-jar.xsd">
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		EJB che implementa il servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<weblogic-enterprise-bean>
+		<ejb-name>SigitextBean</ejb-name>
+		<enable-call-by-reference>true</enable-call-by-reference>
+	</weblogic-enterprise-bean>
+
+	<!--  
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Porta applicativa del servizio
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	-->
+	<weblogic-enterprise-bean>
+		<ejb-name>SigitextPA</ejb-name>
+		<enable-call-by-reference>true</enable-call-by-reference>
+		<jndi-name>sigitext.ejb.ApplSigitextPA</jndi-name>
+		<!--PROTECTED REGION ID(R1192158374) ENABLED START-->
+		<!-- modificare il valore di timeout se necessario (non verra' sovrascritto nelle rigenerazioni -->
+		<remote-client-timeout>30</remote-client-timeout>
+		<!--PROTECTED REGION END-->
+	</weblogic-enterprise-bean>
+	
+	
+	
+	
+	
+	
+</weblogic-ejb-jar>

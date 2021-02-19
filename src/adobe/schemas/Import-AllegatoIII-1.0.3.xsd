@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/allegato3/data"
+	       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/allegato3/data"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+<xs:element name="MODIII">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="Richiesta"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+
+  <xs:element name="Richiesta">
+      <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="datiManutentore"/> 
+        <xs:element ref="datiIntestazione"/>
+        <xs:element ref="datiAllegato"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+   <!-- DATI DEL MANUTENTORE RESPONSBAILE DEL RAPPORTO DI CONTROLLO -->
+  <xs:element name="datiManutentore"> 
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="siglaREA" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="numeroREA" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="codiceFiscale" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI INTESTAZIONE MODULO -->
+  <xs:element name="datiIntestazione">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="codiceBollino" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		  <xs:element name="codiceCatasto" type="xs:string" minOccurs="1" maxOccurs="1"/> 
+		  <xs:element name="A_F_dataControllo" type="xs:date" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI DEL MODULO CHE SI RIPETONO -->
+  <xs:element name="datiAllegato">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element ref="datiIdentificativi"/>
+		  <xs:element ref="documentazioneTecnica"/>
+          <xs:element ref="trattamentoAcqua"/>
+		  <xs:element ref="controlloImpianto"/>
+		  <xs:element ref="checkList"/>
+          <xs:element ref="datiTecnico"/>
+		  
+          <xs:element name="allegatoIII">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowAllegatoIII" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="rowAllegatoIII">
+    <xs:complexType>
+      <xs:sequence>
+	  
+         <xs:element name="A_E_numGF" type="xs:integer"/>
+		 
+         <xs:element name="tabFumi">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowFumi" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+		 
+        <xs:element ref="controlloVerificaEnergetica"/>  
+		
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+ 
+  <xs:element name="rowFumi">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="A_E_surrisc" type="Decimale52" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_sottoRaffr" type="Decimale52" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_condens" type="Decimale52" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_evaporaz" type="Decimale52" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_ingLatoEst" type="Decimale52" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_uscLatoEst" type="Decimale52" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_ingLatoUtenze" type="Decimale52" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_uscLatoUtenze" type="Decimale52" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_numCircuito" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_TuscFluido" type="Decimale52" nillable="true"/>
+              <xs:element name="A_E_TbulboUmido" type="Decimale52" nillable="true"/>
+              <xs:element name="A_E_TingFluidoSorg" type="Decimale52" nillable="true"/>
+              <xs:element name="A_E_TuscFluidoSorg" type="Decimale52" nillable="true"/>
+              <xs:element name="A_E_TingFluidoMacc" type="Decimale52" nillable="true"/>
+              <xs:element name="A_E_TuscFluidoMacc" type="Decimale52" nillable="true"/>
+              <xs:element name="A_E_potenzaAss" type="Decimale52" nillable="true"/>
+              <xs:element name="A_E_filtriPuliti" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+              <xs:element name="A_E_Verifica" type="xs:boolean" />
+              <xs:element name="A_E_dataRipristino" type="xs:date" nillable="true"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+
+  <!-- A. DATI IDENTIFICATIVI -->
+  <xs:element name="datiIdentificativi">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_A_potenzaTermicaNomTotMax" type="Decimale62" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- B. DOCUMENTAZIONE TECNICA -->
+  <xs:element name="documentazioneTecnica">
+    <xs:complexType>
+      <xs:sequence>
+		 <xs:element name="A_B_flagDichiarazConf" type="xs:boolean" minOccurs="1" maxOccurs="1"/> <!--0=FALSE; 1=TRUE--> 
+         <xs:element name="A_B_flagManutGen" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_B_flagLibrettoImp" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_B_flagLibrettoComp" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- C. TRATTAMENTO ACQUA -->
+  <xs:element name="trattamentoAcqua">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_C_flagTrattH2ONR" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- D. CONTROLLO IMPIANTO -->
+  <xs:element name="controlloImpianto">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_D_flagLocaleIdoneo" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagDimensioni" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagAperture" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagLineeIdonee" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagCoibenIdonee" type="Valori012" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- E. CONTROLLO E VERIFICA ENERGETICA GT -->
+   <xs:element name="controlloVerificaEnergetica">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_E_flagModalita" type="ModalitaRaRi" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagPerdite" type="Valori012" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagRilevFugheDiretta" type="Valori012" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagRilevFugheInDiretta" type="Valori012" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagScambPuliti" type="Valori012" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+  
+  <!-- F. CHECK LIST -->
+   <xs:element name="checkList">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_F_flagSostGen1" type="xs:boolean"/>
+          <xs:element name="A_F_flagSostGen2" type="xs:boolean"/>
+          <xs:element name="A_F_flagIsolamentoRete" type="xs:boolean"/>
+          <xs:element name="A_F_flagIsolamentoCanali" type="xs:boolean"/>
+          
+          <xs:element name="A_F_osservazioni" type="Note1000" />
+          <xs:element name="A_F_raccomandazioni" type="Note1000" />
+          <xs:element name="A_F_prescrizioni" type="Note1000" />
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+
+  <!-- sezione dati del tecnico -->
+   <xs:element name="datiTecnico">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_F_flagFunzImp" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_F_dataIntervento" type="xs:date" />
+          <xs:element name="A_F_orarioArrivo" type="xs:string"/>
+          <xs:element name="A_F_orarioPartenza" type="xs:string"/>
+          <xs:element name="A_F_nomeTecnico" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_F_cognomeTecnico" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_F_firmaTecnico" type="xs:string"/>
+          <xs:element name="A_F_firmaResp" type="xs:string"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+	
+	
+	<!-- sezione variabili -->
+	<xs:simpleType name="Valori012">
+		    <!--xs:annotation>
+	            <xs:documentation>Valori ammessi:
+                               0-"NO"
+                               1-"SI"
+                               2-"NC"
+			   </xs:documentation>
+	        </xs:annotation-->
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="0"/>
+                <xs:enumeration value="1"/>
+                <xs:enumeration value="2"/>
+            </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Decimale62">
+		    <xs:restriction base="xs:decimal"> 
+                <xs:totalDigits value="8"/>
+                <xs:fractionDigits value="2"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Decimale52">
+		    <xs:restriction base="xs:decimal"> 
+                <xs:totalDigits value="7"/>
+                <xs:fractionDigits value="2"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Note1000">
+		    <xs:restriction base="xs:string">
+			     <xs:maxLength value="1000"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="ModalitaRaRi">
+		    <xs:restriction base="xs:string">
+				 <xs:enumeration value="RAF"/>
+                 <xs:enumeration value="RIS"/>
+			</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>

@@ -1,0 +1,177 @@
+
+<ivy-module version="1.0">
+
+	<info organisation="csipiemonte" module="sigitext" />
+
+	<dependencies>
+
+		<!-- librerie per il logging applicativo e la misurazione 
+		     delle performance. Nota: la piattaforma jboss impone l'utilizzo della
+		     versione 1.2.14. 
+		     -->		
+		<dependency org="apache" name="log4j" rev="1.2.14">
+			<artifact name="log4j-1.2.14" type="jar" />
+		</dependency>
+
+		<dependency org="csipiemonte" name="util-perf" rev="1.0.0">
+			<artifact name="util-perf-1.0.0" type="jar" />
+		</dependency>
+
+		<!-- librerie per l'implementazione di monitoraggio e diagnostica -->
+		<dependency org="csipiemonte" name="coop-diag" rev="1.2.1">
+			<artifact name="coop-diag-1.2.1" type="jar" />
+		</dependency>
+		
+		<!-- librerie per la realizzazioen dei test unitari -->
+		<dependency org="others" name="junit" rev="3.8.1">
+			<artifact name="junit-3.8.1" type="jar" />
+		</dependency>
+
+		<!-- librerie Core di C.S.I -->
+		<dependency org="csipiemonte" name="csi" rev="1.4.5">
+			<artifact name="csi-apachesoap-1.4.5" type="jar" />
+			<artifact name="csi-core-1.4.5" type="jar" />
+			<artifact name="csi-ejb-1.4.5" type="jar" />
+			<artifact name="csi-ejb-weblogic-1.4.5" type="jar" />
+			<artifact name="csi-rmi-1.4.5" type="jar" />
+			<artifact name="csi-stadapter-1.4.5" type="jar" />
+			<artifact name="csi-tools-1.4.5" type="jar" />
+		</dependency>
+	    
+	    <!-- librerie necessarie pe ri binding WSFAD -->
+	    <dependency org="csipiemonte" name="wsadp" rev="2.1.0">
+	    	<artifact name="wsadp-2.1.0" type="jar" /> 
+	    </dependency>
+	    
+	    <!-- librerie necessarie se si attiva il supporto coop trace
+	         (specifiche per la target platform JBossEAP6. 
+	    -->
+	    
+	    <dependency org="csipiemonte" name="coop-trace" rev="1.2.0">
+	    	<artifact name="coop-trace-1.2.0" type="jar" />
+	    </dependency>
+	    
+	    <!-- dipendenze per svcflow 1.2.1 -->
+	    <dependency org="csipiemonte" name="svcflow" rev="1.2.1">
+	    	<artifact name="svcflow-1.2.1" type="jar" />
+	    </dependency>
+	    
+	    
+	    
+		<!-- librerie necessarie per l'implementazione spring -->
+		<dependency org="others" name="spring" rev="3.1.1.RELEASE" transitive="false" >
+	      <artifact name="spring-aop-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-asm-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-beans-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-context-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-core-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-expression-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-jdbc-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-tx-3.1.1.RELEASE" type="jar" />
+	      <artifact name="spring-web-3.1.1.RELEASE" type="jar" />
+	    </dependency>
+	    <dependency org="others" name="aopalliance" rev="1.0" />
+	    
+	    
+	    
+        <!-- librerie specifiche della target platform JBoss43 -->
+		<dependency org="others" name="jboss" rev="4.3.0">
+			<artifact name="jboss-j2ee-4.3.0" type="jar" />
+			<artifact name="jboss-servlet-api-4.3.0" type="jar" /> 
+		</dependency>
+		
+		<!-- librerie necessarie per la connessione a servizi su WLS92 -->
+		<dependency org="csipiemonte" name="weblogic-client" rev="3.0.0">
+			<artifact name="weblogic-client-3.0.0" type="jar" /> 
+		</dependency>
+		
+	    
+		<dependency org="csipiemonte" name="axiscsi" rev="1.0.0">
+			<artifact name="axis-1.4.csi-1.0.0" type="jar" />
+		</dependency>
+		
+		<dependency org="apache" name="axis-ant" rev="1.4">
+			<artifact name="axis-ant-1.4" type="jar" />
+		</dependency>
+	    
+	    <!--PROTECTED REGION ID(R876550913) ENABLED START-->
+	    <!-- inserire QUI le direttive di download di eventuali librerie extra 
+	         ricordarsi di referenziare i jar nel file build.properties nella
+	         variabile extra.app.libs
+	    -->
+	    
+  			<dependency org="csipiemonte" name="util-beanlocatorfactory" rev="1.0.1"/>
+  			<dependency org="oracle" name="jdbc" rev="10.2.0.3.0"/>
+  			<dependency org="others" name="cglib-nodep" rev="2.1_3"/>
+  			<dependency org="apache" name="commons-lang" rev="2.4" />
+  			
+  			<!-- INDEX -->
+			<dependency org="doqui" name="ecmengine-common" rev="6.2.0">
+				<artifact name="ecmengine-common-6.2.0" type="jar" />
+			</dependency>
+			<!--dependency org="doqui" name="ecmengine-engine-client" rev="6.2.0">
+				<artifact name="ecmengine-engine-client-6.2.0" type="jar" />
+			</dependency-->
+			
+			<dependency org="doqui" name="ecmengine-ws-client" rev="6.6.0">
+				<artifact name="ecmengine-ws-client-6.6.0" type="jar" />
+			</dependency>
+			
+			<!-- MODOL -->
+			<!--dependency org="csipiemonte" name="modolsrv" rev="1.5.0" >
+			   <artifact name="modolsrv-client-1.5.0" type="jar" />
+			</dependency-->
+
+			<!-- MODOL pdf statico -->
+			<!--dependency org="csipiemonte" name="modolpdfgeneratorsrv-client" rev="1.2.0" >
+			   <artifact name="modolpdfgeneratorsrv-client-1.2.0" type="jar" />
+			</dependency-->
+
+			<!-- MODOL XP -->
+			<!--dependency org="csipiemonte" name="modolxpsrv" rev="1.0.0" >
+			   <artifact name="modolxpsrv-client-service-1.0.0-jdk150-11" type="jar" />
+			</dependency-->
+
+			<!-- MODOL pdf statico XP -->
+<!-- 		<dependency org="csipiemonte" name="modolxppdfgensrv" rev="1.1.0" > -->
+<!-- 		   <artifact name="modolxppdfgensrv-client-service-1.1.0-jdk150-11" type="jar" /> -->
+<!-- 		</dependency> -->
+			
+			<dependency org="others" name="javaee" rev="5.0.1">
+			   <artifact name="javaee-api-5.0-1" type="jar" />
+		  	</dependency>
+		  	
+		  	<dependency org="others" name="xmlbeans" rev="2.4.0">
+			   <artifact name="xmlbeans-2.4.0" type="jar" />
+		  	</dependency>
+		  	
+		  	<dependency org="others" name="itext" rev="2.1.7" />
+		  	
+		  	<!-- JWT -->
+			<dependency org="auth0" name="jwt" rev="3.3.0">
+			   <artifact name="java-jwt-3.3.0" type="jar" />
+		  	</dependency>
+			<dependency org="bouncycastle" name="bcprov-jdk15" rev="155">
+			   <artifact name="bcprov-jdk15on-155" type="jar" />
+		  	</dependency>
+		  	<dependency org="fasterxml" name="jackson-annotations" rev="2.9.9">
+		  		<artifact name="jackson-annotations-2.9.9" type="jar"/>
+		  	</dependency>
+		  	<dependency org="fasterxml" name="jackson-core" rev="2.9.9">
+		  		<artifact name="jackson-core-2.9.9" type="jar"/>
+		  	</dependency>
+		  	<dependency org="fasterxml" name="jackson-databind" rev="2.9.9">
+		  		<artifact name="jackson-databind-2.9.9" type="jar"/>
+		  	</dependency>
+		  	<dependency org="apache" name="commons-codec" rev="1.7">
+		  		<artifact name="commons-codec-1.7" type="jar"/>
+		  	</dependency>
+		  	
+		  	<!-- dependency org="apache" name="geronimo-stax" rev="1.0">
+			   <artifact name="geronimo-stax-api_1.0_spec-1.0.1" type="jar" />
+			</dependency-->
+			
+	    <!--PROTECTED REGION END-->
+	</dependencies>
+
+</ivy-module>

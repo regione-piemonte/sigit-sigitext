@@ -1,0 +1,137 @@
+<porta-delegata name="sigitext.sigitext">
+	<services>
+<service name="sigitext"
+         public-interface-class="it.csi.sigit.sigitext.interfacecsi.sigitext.SigitextSrv" 
+         top-version="2.1.0">
+	<operations>
+<operation name="getCombustibileCIT" type="synch-call">
+	<param-list>
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[]" />
+</operation>
+<operation name="getFluidoCIT" type="synch-call">
+	<param-list>
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[]" />
+</operation>
+<operation name="getMarcaCIT" type="synch-call">
+	<param-list>
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[]" />
+</operation>
+<operation name="getUnitaMisuraCIT" type="synch-call">
+	<param-list>
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione[]" />
+</operation>
+<operation name="getImpiantoByCodiceJWT" type="synch-call">
+	<param-list>
+<param name="codiceImpianto" type="java.lang.Integer" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.Impianto[]" />
+</operation>
+<operation name="getImpiantoByPODJWT" type="synch-call">
+	<param-list>
+<param name="pod" type="java.lang.String" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.Impianto[]" />
+</operation>
+<operation name="getImpiantoByPDRJWT" type="synch-call">
+	<param-list>
+<param name="pdr" type="java.lang.String" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.Impianto[]" />
+</operation>
+<operation name="getLibrettoByUIDJWT" type="synch-call">
+	<param-list>
+<param name="uid" type="java.lang.String" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.Documento" />
+</operation>
+<operation name="getXMLLibrettoNowJWT" type="synch-call">
+	<param-list>
+<param name="codiceImpianto" type="java.lang.Integer" />
+<param name="isConsolidato" type="java.lang.Boolean" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.Documento" />
+</operation>
+<operation name="getLibrettoNowJWT" type="synch-call">
+	<param-list>
+<param name="codiceImpianto" type="java.lang.Integer" />
+<param name="isConsolidato" type="java.lang.Boolean" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.Libretto" />
+</operation>
+<operation name="getXMLLibrettoConsolidatoJWT" type="synch-call">
+	<param-list>
+<param name="codiceImpianto" type="java.lang.Integer" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.Documento" />
+</operation>
+<operation name="uploadXMLLibrettoJWT" type="synch-call" since="">
+	<param-list>
+<param name="codiceImpianto" type="java.lang.Integer" />
+<param name="xml" type="byte[]" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="void" />
+</operation>
+<operation name="uploadXMLControlloJWT" type="synch-call">
+	<param-list>
+<param name="codiceImpianto" type="java.lang.Integer" />
+<param name="tipoControllo" type="java.lang.String" />
+<param name="xml" type="byte[]" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="int" />
+</operation>
+<operation name="getImpiantiByFiltroJWT" type="synch-call" since="">
+	<param-list>
+<param name="impiantoFiltro" type="it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro" />
+<param name="tokenJWT" type="java.lang.String" />
+	</param-list>
+	<ret-val type="it.csi.sigit.sigitext.dto.sigitext.Impianto[]" />
+</operation>
+		<!-- operazione per monitoraggio -->
+		<operation name="testResources" type="synch-call">
+			<param-list>
+			</param-list>
+			<ret-val type="boolean"/>
+		</operation>
+		<!-- operazioni per diagnostica -->
+		<operation name="selfCheck" type="synch-call">
+			<param-list>
+				<param name="alreadyCalled" type="it.csi.coopdiag.api.CalledResource[]"/>
+			</param-list>
+			<ret-val type="it.csi.coopdiag.api.InvocationNode"/>
+		</operation>
+		<operation name="hasSelfCheck" type="synch-call">
+			<param-list>
+			</param-list>
+			<ret-val type="boolean"/>
+		</operation>
+	</operations>
+</service>
+	</services>
+	<config>
+		<url-pa>**not used**</url-pa>
+		<pluggable-pd-list chooser-class="it.csi.csi.porte.FixedDelegateChooser">
+			<pluggable-pd name="sigitext"
+			              class="it.csi.csi.porte.ejb20.PortaDelegataEJB"
+			              url-pa="sigitext.ejb.ApplSigitextPA"
+			              url-qm="sigitext.ejb.ApplSigitextQMGR">
+				<properties>
+					<property name="java.naming.provider.url" value="@sigit.sigitext.sigitext.pa.url@"/>
+				</properties>
+			</pluggable-pd>
+		</pluggable-pd-list>
+		<queue-manager url=""/>
+	</config>
+</porta-delegata>

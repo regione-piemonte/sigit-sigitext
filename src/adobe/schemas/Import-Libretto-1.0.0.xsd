@@ -1,0 +1,2869 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/libretto/data"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/libretto/data"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
+
+
+	<xs:element name="libretto">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="libretto_catasto" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="libretto_catasto">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="L1_schedaIdentificativa" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="L2_trattamentoAcqua" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="L4_generatori" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="L5_sistemiRegolazioneContabilizzazione" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="L6_sistemiDistribuzione" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="L7_sistemiEmissione" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="L8_sistemiAccumulo" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="L9_altriComponenti" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="L10_ventilazione" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="L14_consumi" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L1_schedaIdentificativa">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L1_1dataIntervento" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L1_1tipoIntervento" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Valori ammessi:
+								1-Nuova installazione
+								2-Ristrutturazione
+								3-Sostituzione generatore
+								4-Compilazione libretto impianto esistente
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:enumeration value="1"/>
+							<xs:enumeration value="2"/>
+							<xs:enumeration value="3"/>
+							<xs:enumeration value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!-- I POD/PDR e rif catastali aggiuntivi sono da caricare a mano -->
+				<xs:element name="L1_2flagUnitaImmSingle" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L1_2categoria" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Valori ammessi:
+								E.1
+								E.2
+								E.3
+								E.4
+								E.5
+								E.6
+								E.7
+								E.8
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="E.1"/>
+							<xs:enumeration value="E.2"/>
+							<xs:enumeration value="E.3"/>
+							<xs:enumeration value="E.4"/>
+							<xs:enumeration value="E.5"/>
+							<xs:enumeration value="E.6"/>
+							<xs:enumeration value="E.7"/>
+							<xs:enumeration value="E.8"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L1_2volLordoRisc" type="decimaleType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L1_2volLordoRaffr" type="decimaleType" minOccurs="0" maxOccurs="1" nillable="true"/>
+
+				<xs:choice minOccurs="1" maxOccurs="unbounded"> 
+					<xs:annotation>
+						<xs:documentation>
+							- Se valorizzate una delle voci viene impostato il check a true, di default a false
+							- Se la stessa voce è present più volte (es L1_3servizioACS) viene tenuta in considerazione solo la prima
+						</xs:documentation>
+					</xs:annotation>
+					<xs:element name="L1_3servizioACS" type="decimaleType" minOccurs="1" maxOccurs="1" nillable="true"/>
+					<xs:element name="L1_3servizioClimaInv" type="decimaleType" minOccurs="1" maxOccurs="1" nillable="true"/>
+					<xs:element name="L1_3servizioClimaEst" type="decimaleType" minOccurs="1" maxOccurs="1" nillable="true"/>
+					<xs:element name="L1_3servizioAltro" minOccurs="1" maxOccurs="1" nillable="true">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="100"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:choice>
+
+				<!--xs:choice minOccurs="1" maxOccurs="unbounded"-->
+				<!--Almeno una delle voci L1_4xxx deve essere valorizzata a true-->
+				<xs:element name="L1_4fluidoAcqua" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_4fluidoAria" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_4fluidoAltro" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!--/xs:choice-->
+				<!--xs:choice minOccurs="1" maxOccurs="unbounded"-->
+				<!--Almeno una delle voci L1_5xxx deve essere valorizzata a true-->
+				<xs:element name="L1_5tipoGeneratore" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_5tipoPompa" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_5tipoFrigo" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_5tipoTelerisc" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_5tipoTeleraff" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_5tipoCogen" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_5tipoAltro" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!--/xs:choice-->
+
+				<xs:element name="L1_5tipoIntegrazionePannelli" type="decimaleType6_2" minOccurs="0" maxOccurs="1" nillable="true"/>
+
+				<xs:element name="L1_5tipoIntegrazioneAltro" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="descrizioneDecimaleType" minOccurs="0" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L1_5tipoPerClimaInv" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_5tipoPerClimaEst" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_5tipoPerACS" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L1_5tipoPerAltro" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+				<!-- La sezione 1_6 e' compilata dal web -->
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L2_trattamentoAcqua">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L2_1contenutoAcqua" type="decimaleType8_3" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L2_2durezzaAcqua" type="decimaleType4_2" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L2_3trattAcquaAssente" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L2_3trattAcquaFiltrazione" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L2_3trattamentoAcquaAddolcimento" type="decimaleType4_2" minOccurs="0" maxOccurs="1" nillable="true">
+					<!--xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="4"/>
+							<xs:fractionDigits value="2"/>
+							<xs:maxInclusive value="99.99"/>
+						</xs:restriction>
+					</xs:simpleType-->
+				</xs:element>
+
+				<xs:element name="L2_3trattAcquaChimico" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L2_3trattAcquaGeloAssente" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L2_3trattAcquaGeloEtilenico" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="percentoDecimaleType" minOccurs="0" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L2_3trattAcquaGeloPropilenico" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="percentoDecimaleType" minOccurs="0" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L2_4trattAcquaAcsAssente" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L2_4trattAcquaAcsFiltrazione" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L2_4trattamentoAcquaAcsAddolcimento"  type="decimaleType4_2" minOccurs="0" maxOccurs="1" nillable="true">
+					<!--xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="4"/>
+							<xs:fractionDigits value="2"/>
+							<xs:maxInclusive value="99.99"/>
+						</xs:restriction>
+					</xs:simpleType-->
+				</xs:element>
+				<xs:element name="L2_4trattAcquaAcsChimico" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+
+				<xs:element name="L2_5trattAcquaRaffreddamentoAssente" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L2_5senzaRecuperoTermico" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5recuperoTermicoParziale" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5recuperoTermicoTotale" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L2_5acquedotto" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5pozzo" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5acquaSuperficiale" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L2_5filtrazioneSicurezza" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5filtrazioneMasse" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5filtrazioneNessunTrattamento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5filtrazioneAltro" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="100"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+
+
+				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L2_5trattAcquaAddolcimento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5trattAcquaOsmosi" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5trattAcquaDemineraliz" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5trattAcquaNessunTrattamento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5trattAcquaAltro" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="100"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+
+				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L2_5condChimicoAnticrostante" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5condChimicoAnticorrosiva" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5condChimicoAnticrostanteAnticorrosiva" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5condChimicoBioacida" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5condChimicoNessunTrattamento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="L2_5condChimicoAltro" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:maxLength value="100"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:choice>
+				<xs:element name="L2_5torreRaffreddamento" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L2_5conducibilita" type="decimaleType" minOccurs="0" maxOccurs="1" nillable="true"/>
+							<xs:element name="L2_5taratura" type="decimaleType" minOccurs="0" maxOccurs="1" nillable="true"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_generatori">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_1GT" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L4_1numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_1gruppoTermico" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_1gruppoTermicoSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L4_2BR" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L4_2numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="L4_2GtCollegato" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_2bruciatore" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_2bruciatoreSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L4_3RC" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L4_3numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="L4_3GtCollegato" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_3recuperatore" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_3recuperatoreSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L4_4GF" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L4_4numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_4gruppoFrigo" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_4gruppoFrigoSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L4_5SC" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L4_5numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_5scambiatore" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_5scambiatoreSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L4_6CG" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L4_6numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_6cogeneratore" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_6cogeneratoreSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L4_7CS" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L4_7numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_7campoSolareTermico" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_7campoSolareTermicoSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L4_8AG" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L4_8numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_8altroGeneratore" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L4_8altroGeneratoreSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L5_sistemiRegolazioneContabilizzazione">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L5_1flagRegolazioneOnOff" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L5_1flagRegolazioneCurvaIntegrata" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L5_1flagRegolazioneCurvaIndipendente" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L5_1SR" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L5_1numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L5_1sistemaRegolazione" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L5_1sistemaRegolazioneSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L5_1flagValvoleRegolazione" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L5_1VR" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L5_1numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L5_1valvolaRegolazione" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L5_1valvolaRegolazioneSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L5_1flagSistemaRegolazioneMultigradino" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L5_1flagSistemaRegolazioneInverter" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L5_1flagAltroSistemaRegolazione" type="xs:boolean" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L5_1descrizioneAltroSistemaRegolazione" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="5000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L5_2termostatoControlloOnOff" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L5_2termostatoControlloProporzionale" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L5_2controlloEntalpico" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L5_2controlloPortata" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<!-- xs:choice minOccurs="1" maxOccurs="1">
+					<xs:element name="L5_2valvoleTermostatichePresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L5_2valvoleTermostaticheAssenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<xs:choice minOccurs="1" maxOccurs="1">
+					<xs:element name="L5_2valvole2ViePresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L5_2valvole2VieAssenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<xs:choice minOccurs="1" maxOccurs="1">
+					<xs:element name="L5_2valvole3ViePresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L5_2valvole3VieAssenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice-->
+				<!-- attenzione: se L5_2valvoleTermostatichePresenti=FALSE su libretto viene valorizzata la voce ASSENTI -->
+			    <xs:element name="L5_2valvoleTermostatichePresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+			    <!-- attenzione: se L5_2valvole2ViePresenti=FALSE su libretto viene valorizzata la voce ASSENTI -->
+			    <xs:element name="L5_2valvole2ViePresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+			    <!-- attenzione: se L5_2valvole3ViePresenti=FALSE su libretto viene valorizzata la voce ASSENTI -->
+			    <xs:element name="L5_2valvole3ViePresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L5_2note" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="5000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!-- xs:choice minOccurs="1" maxOccurs="1">
+					<xs:element name="L5_3teleletturaPresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L5_3teleletturaAssenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<xs:choice minOccurs="1" maxOccurs="1">
+					<xs:element name="L5_3telegestionePresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L5_3telegestioneAssenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice -->
+				<!-- attenzione: se L5_3teleletturaPresenti=FALSE su libretto viene valorizzata la voce ASSENTI -->
+			    <xs:element name="L5_3teleletturaPresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+			    <!-- attenzione: se L5_3telegestionePresenti=FALSE su libretto viene valorizzata la voce ASSENTI -->
+			    <xs:element name="L5_3telegestionePresenti" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L5_3descSistemaPrimaInstall" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="1000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_3dataSostituzione" type="xs:date" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L5_3descSistemaSost" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="1000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L5_4UIContabilizzateSI" minOccurs="1" maxOccurs="1">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="L5_4flag" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+								<xs:element name="L5_4riscaldamento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+								<xs:element name="L5_4raffrescamento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+								<xs:element name="L5_4acs" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="L5_4UIContabilizzateNO" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+
+				<!-- xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L5_4tipoSistemaDiretto" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L5_4tipoSistemaIndiretto" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice -->
+				<!-- attenzione: se L5_4tipoSistemaDiretto=FALSE su libretto viene valorizzata la voce INDIRETTO -->
+    			<xs:element name="L5_4tipoSistemaDiretto" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L5_4descSistemaPrimaInstall" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="1000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_4dataSostituzione" type="xs:date" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L5_4descSistemaSost" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="1000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L6_sistemiDistribuzione">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<!-- xs:element name="L6_1distribuzioneVerticale" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L6_1distribuzioneOrizzontale" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L6_1distribuzioneCanali" type="xs:boolean" minOccurs="1" maxOccurs="1"/ -->
+					<xs:element name="L6_1tipoDistribuzione" minOccurs="1" maxOccurs="1">
+				      <xs:simpleType>
+				       <xs:annotation>
+				        <xs:documentation>
+				        Valori ammessi:
+				        1-verticale a colonne montanti
+				        2-orizzontale a zone
+				        3-canali d'aria
+				        </xs:documentation>
+				       </xs:annotation>
+				       <xs:restriction base="xs:integer">
+				        <xs:enumeration value="1"/>
+				        <xs:enumeration value="2"/>
+				        <xs:enumeration value="3"/>
+				       </xs:restriction>
+				      </xs:simpleType>
+				     </xs:element>
+				     <xs:element name="L6_1distribuzioneAltro" minOccurs="1" maxOccurs="1">
+				      <xs:simpleType>
+				       <xs:restriction base="xs:string">
+				        <xs:maxLength value="100"/>
+				       </xs:restriction>
+				      </xs:simpleType>
+				     </xs:element>
+				    </xs:choice>
+				<!-- xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L6_2coibentazioneAssente" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L6_2coibentazionePresente" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice -->
+				<!-- attenzione: se L6_2coibentazioneAssente=FALSE su libretto viene valorizzata la voce PRESENTE -->
+    			<xs:element name="L6_2coibentazioneAssente" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L6_2note" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="1000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L6_3VX" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L6_3numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L6_3vasoEspansione" minOccurs="1" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L6_4PO" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L6_4numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L6_4pompa" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L6_4pompaSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L7_sistemiEmissione">
+		<xs:complexType>
+			<xs:sequence>
+				<!--xs:choice minOccurs="1" maxOccurs="unbounded"-->
+				<xs:element name="L7_1radiatori" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L7_1termoconvettori" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L7_1ventilconvettori" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L7_1panelliRadianti" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L7_1bocchette" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L7_1strisceRadianti" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L7_1traviFredde" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<!-- Se valorizzato L4_4combustibileAssorbimentoFiammaDiretta viene selezionato il rispettivo boolean del libretto-->
+				<xs:element name="L7_1altro" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!--/xs:choice-->
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L8_sistemiAccumulo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L8_1AC" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L8_1numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L8_1accumulo" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L8_1accumuloSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_altriComponenti">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_1TE" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L9_1numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_1torre" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_1torreSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L9_2RV" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L9_2numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_2raffreddatore" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_2raffreddatoreSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L9_3SCX" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L9_3numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_3scambiatoreIntermedio" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_3scambiatoreIntermedioSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L9_4CI" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L9_4numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_4circuito" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_4circuitoSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L9_5UT" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L9_5numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_5unitaTrattAria" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_5unitaTrattAriaSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L9_6RCX" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L9_6numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_6recuperatoreAriaAmb" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L9_6recuperatoreAriaAmbSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L10_ventilazione">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L10_1VM" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L10_1numero" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L10_1ventilazioneMeccanica" minOccurs="1" maxOccurs="1"/>
+							<xs:element ref="L10_1ventilazioneMeccanicaSostituito" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L14_consumi">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L14_1consumoCombustibile" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L14_1combustibile" minOccurs="1" maxOccurs="1">
+								<xs:simpleType>
+									<xs:annotation>
+										<xs:documentation>
+											Per i valori ammessi vedere i valori esposti attraverso i web service
+											http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+											servizio "getCombustibileCIT"
+										</xs:documentation>
+									</xs:annotation>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="1"/>
+										<xs:maxInclusive value="99"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="L14_1unitaMisura" minOccurs="1" maxOccurs="1">
+								<xs:simpleType>
+									<xs:annotation>
+										<xs:documentation>
+											Per i valori ammessi vedere i valori esposti attraverso i web service
+											http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+											servizio "getUnitaMisuraCIT"
+										</xs:documentation>
+									</xs:annotation>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="1"/>
+										<xs:maxInclusive value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="L14_1datiConsumoCombustibile" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L14_2consumoEnergiaElettrica" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="L14_2datiConsumoEnergiaElettrica" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L14_3consumoAcqua" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="L14_3unitaMisura" minOccurs="1" maxOccurs="1">
+								<xs:simpleType>
+									<xs:annotation>
+										<xs:documentation>
+											Per i valori ammessi vedere i valori esposti attraverso i web service
+											http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+											servizio "getUnitaMisuraCIT"
+										</xs:documentation>
+									</xs:annotation>
+									<xs:restriction base="xs:integer">
+										<xs:minInclusive value="1"/>
+										<xs:maxInclusive value="10"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element ref="L14_3datiConsumoAcqua" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="L14_4consumoProdottiChimici" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="L14_4datiConsumoProdottiChimici" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_1gruppoTermico">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_1dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L4_1fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1combustibile" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getCombustibileCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1fluido" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getFluidoCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1potenza" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_1rendimento" minOccurs="1" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:minInclusive value="0"/>
+							<xs:maxInclusive value="120"/>
+							<xs:totalDigits value="5"/>
+							<xs:fractionDigits value="2"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice minOccurs="1" maxOccurs="1">
+					<!-- xs:element name="L4_1gruppoTermicoSingolo" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L4_1tuboNastroRadiante" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L4_1generatoreAriaCalda" type="xs:boolean" minOccurs="1" maxOccurs="1"/-->
+					<!-- Se valorizzato L4_1numeroAnalisiFumi viene selezionato il rispettivo boolean del libretto-->
+					<xs:element name="L4_1tipoGruppoTermico" minOccurs="0" maxOccurs="1">
+				      <xs:simpleType>
+				       <xs:annotation>
+				        <xs:documentation>
+				        Valori ammessi:
+				        1-Gruppo Termico Singolo
+				        2-Tubo / Nastro Radiante
+				        3-Generatore Aria Calda
+				        </xs:documentation>
+				       </xs:annotation>
+				       <xs:restriction base="xs:integer">
+				        <xs:enumeration value="1"/>
+				        <xs:enumeration value="2"/>
+				        <xs:enumeration value="3"/>
+				       </xs:restriction>
+				      </xs:simpleType>
+				     </xs:element>
+					<xs:element name="L4_1numeroAnalisiFumi" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:integer">
+								<xs:minInclusive value="1"/>
+								<xs:maxInclusive value="99"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_1gruppoTermicoSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_1dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_1fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1combustibile" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getCombustibileCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1fluido" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getFluidoCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_1potenza" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_1rendimento" minOccurs="1" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:minInclusive value="0"/>
+							<xs:maxInclusive value="120"/>
+							<xs:totalDigits value="5"/>
+							<xs:fractionDigits value="2"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+
+				<xs:choice minOccurs="1" maxOccurs="1">
+					<!-- xs:element name="L4_1gruppoTermicoSingolo" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L4_1tuboNastroRadiante" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L4_1generatoreAriaCalda" type="xs:boolean" minOccurs="1" maxOccurs="1"/ -->
+					<!-- Se valorizzato L4_1numeroAnalisiFumi viene selezionato il rispettivo boolean del libretto-->
+					<xs:element name="L4_1tipoGruppoTermico" minOccurs="0" maxOccurs="1">
+					      <xs:simpleType>
+					       <xs:annotation>
+					        <xs:documentation>
+					        Valori ammessi:
+					        1-Gruppo Termico Singolo
+					        2-Tubo / Nastro Radiante
+					        3-Generatore Aria Calda
+					        </xs:documentation>
+					       </xs:annotation>
+					       <xs:restriction base="xs:integer">
+					        <xs:enumeration value="1"/>
+					        <xs:enumeration value="2"/>
+					        <xs:enumeration value="3"/>
+					       </xs:restriction>
+					      </xs:simpleType>
+					</xs:element>
+					<xs:element name="L4_1numeroAnalisiFumi" minOccurs="0" maxOccurs="1">
+						<xs:simpleType>
+							<xs:restriction base="xs:integer">
+								<xs:minInclusive value="1"/>
+								<xs:maxInclusive value="99"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_2bruciatore">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_2dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_2dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L4_2fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2tipologia" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2combustibile" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getCombustibileCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2portataMaxNominale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_2portataMinNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_2bruciatoreSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_2dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_2dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_2fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2tipologia" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2combustibile" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getCombustibileCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_2portataMaxNominale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_2portataMinNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_3recuperatore">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_3dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_3dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L4_3fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_3modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_3matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_3potenzaNominaleTotale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_3recuperatoreSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_3dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_3dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_3fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_3modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_3matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_3potenzaNominaleTotale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_4gruppoFrigo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_4dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_4dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L4_4fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_4modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_4matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L4_4sorgenteExtAria" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L4_4sorgenteExtAcqua" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<xs:element name="L4_4fluidoFrigorigeno" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L4_4fluidoUtenzeAria" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L4_4fluidoUtenzeAcqua" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L4_4assorbimentoPerRecupero" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<!-- Se valorizzato L4_4combustibileAssorbimentoFiammaDiretta viene selezionato il rispettivo boolean del libretto-->
+					<xs:element name="L4_4combustibileAssorbimentoFiammaDiretta" minOccurs="1" maxOccurs="1">
+						<xs:simpleType>
+							<xs:annotation>
+								<xs:documentation>
+									Per i valori ammessi vedere i valori esposti attraverso i web service
+									http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+									servizio "getCombustibileCIT"
+								</xs:documentation>
+							</xs:annotation>
+							<xs:restriction base="xs:integer">
+								<xs:minInclusive value="1"/>
+								<xs:maxInclusive value="99"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="L4_4compressioneMotoreElettrico" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<xs:element name="L4_4numCircuiti" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_4raffEER" type="decimaleType9_4" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_4raffPotenzaNominale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_4raffPotenzaAssNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_4riscCOP" type="decimaleType9_4" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_4riscPotenzaNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_4riscPotenzaAssNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1" nillable="true"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_4gruppoFrigoSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_4dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_4dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_4fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_4modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_4matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L4_4sorgenteExtAria" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L4_4sorgenteExtAcqua" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<xs:element name="L4_4fluidoFrigorigeno" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L4_4fluidoUtenzeAria" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L4_4fluidoUtenzeAcqua" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L4_4assorbimentoPerRecupero" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<!-- Se valorizzato L4_4combustibileAssorbimentoFiammaDiretta viene selezionato il rispettivo boolean del libretto-->
+					<xs:element name="L4_4combustibileAssorbimentoFiammaDiretta" minOccurs="1" maxOccurs="1">
+						<xs:simpleType>
+							<xs:annotation>
+								<xs:documentation>
+									Per i valori ammessi vedere i valori esposti attraverso i web service
+									http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+									servizio "getCombustibileCIT"
+								</xs:documentation>
+							</xs:annotation>
+							<xs:restriction base="xs:integer">
+								<xs:minInclusive value="1"/>
+								<xs:maxInclusive value="99"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="L4_4compressioneMotoreElettrico" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+				<xs:element name="L4_4numCircuiti" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_4raffEER" type="decimaleType9_4" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_4raffPotenzaNominale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_4raffPotenzaAssNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_4riscCOP" type="decimaleType9_4" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_4riscPotenzaNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_4riscPotenzaAssNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1" nillable="true"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_5scambiatore">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_5dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_5dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L4_5fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_5modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_5matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_5potenzaNominaleTotale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_5scambiatoreSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_5dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_5dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_5fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_5modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_5matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_5potenzaNominaleTotale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_6cogeneratore">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_6dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_6dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L4_6fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6tipologia" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6alimentazione" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getCombustibileCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6potenzaTermicaNominale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_6potenzaElettricaNominale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_6tempAcquaUscitaMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaUscitaMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaIngressoMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaIngressoMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaMotoreMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaMotoreMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempFumiValleMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempFumiValleMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempFumiMonteMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempFumiMonteMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6emissioniCOMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6emissioniCOMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_6cogeneratoreSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_6dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_6dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_6fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6tipologia" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6alimentazione" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getCombustibileCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_6potenzaTermicaNominale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_6potenzaElettricaNominale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_6tempAcquaUscitaMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaUscitaMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaIngressoMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaIngressoMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaMotoreMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempAcquaMotoreMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempFumiValleMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempFumiValleMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempFumiMonteMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6tempFumiMonteMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6emissioniCOMin" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="L4_6emissioniCOMax" type="gradiCentigradiType" minOccurs="0" maxOccurs="1" nillable="true"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_7campoSolareTermico">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_7dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_7dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L4_7fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_7collettori" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_7supTotaleApertura" type="decimaleType7_2" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_7campoSolareTermicoSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_7dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_7dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_7fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_7collettori" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="99999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_7supTotaleApertura" type="decimaleType7_2" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_8altroGeneratore">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_8dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_8dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L4_8fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_8modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_8matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_8tipologia" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_8potenzaNominaleTotale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L4_8altroGeneratoreSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L4_8dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_8dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L4_8fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_8modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_8matricola" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_8tipologia" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L4_8potenzaNominaleTotale" type="decimaleType8_2" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L5_1sistemaRegolazione">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L5_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L5_1dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L5_1fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1numeroPuntiRegolazione" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1numeroLivelliTemp"  minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L5_1sistemaRegolazioneSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L5_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L5_1dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L5_1fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1numeroPuntiRegolazione" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1numeroLivelliTemp"  minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L5_1valvolaRegolazione">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L5_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L5_1dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L5_1fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1numeroVie" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1servomotore" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L5_1valvolaRegolazioneSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L5_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L5_1dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L5_1fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1numeroVie" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L5_1servomotore" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L6_3vasoEspansione">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L6_3capacita" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L6_3aperto" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<!-- Se valorizzato L6_3chiusoPressione viene selezionato il rispettivo boolean del libretto-->
+					<xs:element name="L6_3chiusoPressione" type="decimaleType7_2" minOccurs="1" maxOccurs="1"/>
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L6_4pompa">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L6_4dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L6_4dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L6_4fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L6_4modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!-- xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L6_4giriVariabiliSI" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L6_4giriVariabiliNO" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice -->
+				<!-- attenzione: se L6_4giriVariabiliSI=FALSE su libretto viene valorizzata la voce NO -->
+    			<xs:element name="L6_4giriVariabiliSI" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L6_4potenzaNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L6_4pompaSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L6_4dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L6_4dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L6_4fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L6_4modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!-- xs:choice minOccurs="0" maxOccurs="1">
+					<xs:element name="L6_4giriVariabiliSI" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="L6_4giriVariabiliNO" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice -->
+				<!-- attenzione: se L6_4giriVariabiliSI=FALSE su libretto viene valorizzata la voce NO -->
+    			<xs:element name="L6_4giriVariabiliSI" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L6_4potenzaNominale" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L8_1accumulo">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L8_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L8_1dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L8_1fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L8_1modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L8_1matricola" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L8_1capacita" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L8_1ACS" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L8_1riscaldamento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L8_1raffrescamento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<!--xs:choice minOccurs="0" maxOccurs="1"-->
+				<!-- attenzione: se L8_1coibentazioneAssente=FALSE su libretto viene valorizzata la voce PRESENTE -->
+				<xs:element name="L8_1coibentazioneAssente" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<!--xs:element name="L8_1coibentazionePresente" type="xs:boolean" minOccurs="1" maxOccurs="1"/-->
+				<!--/xs:choice-->
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L8_1accumuloSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L8_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L8_1dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L8_1fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L8_1modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L8_1matricola" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L8_1capacita" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L8_1ACS" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L8_1riscaldamento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L8_1raffrescamento" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<!--xs:choice minOccurs="0" maxOccurs="1"-->
+				<!-- attenzione: se L8_1coibentazioneAssente=FALSE su libretto viene valorizzata la voce PRESENTE -->
+				<xs:element name="L8_1coibentazioneAssente" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<!--xs:element name="L8_1coibentazionePresente" type="xs:boolean" minOccurs="1" maxOccurs="1"/-->
+				<!--/xs:choice-->
+				
+				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_1torre">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_1dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_1fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_1modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_1matricola" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_1capacita" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_1numeroVentilatori" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_1tipoVentilatori" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_1torreSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_1dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_1fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_1modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_1matricola" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_1capacita" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_1numeroVentilatori"  minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_1tipoVentilatori" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_2raffreddatore">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_2dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_2dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_2fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_2modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_2matricola" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_2numeroVentilatori" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_2tipoVentilatori" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_2raffreddatoreSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_2dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_2dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_2fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_2modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_2matricola" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_2numeroVentilatori" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_2tipoVentilatori" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_3scambiatoreIntermedio">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_3dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_3dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_3fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_3modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_3scambiatoreIntermedioSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_3dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_3dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_3fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_3modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_4circuito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_4dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_4dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_4lunghezzaCircuito" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_4supScambiatore" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_4profondita" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_4circuitoSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_4dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_4dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_4lunghezzaCircuito" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_4supScambiatore" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_4profondita" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_5unitaTrattAria">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_5dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_5dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_5fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_5modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_5matricola" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_5portataMandata" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_5potenzaMandata" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_5portataRipresa" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_5potenzaRipresa" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_5unitaTrattAriaSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_5dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_5dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_5fabbricante" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_5modello" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_5matricola" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="30"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L9_5portataMandata" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_5potenzaMandata" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_5portataRipresa" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_5potenzaRipresa" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_6recuperatoreAriaAmb">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_6dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_6dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_6tipologia" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!--xs:choice minOccurs="0" maxOccurs="1"-->
+				<!-- attenzione: se L9_6installato=FALSE su libretto viene valorizzata la voce INDIPENDENTE -->
+				<xs:element name="L9_6installato" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<!--xs:element name="L9_6indipendente" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice-->
+				<xs:element name="L9_6portataMandata" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_6potenzaMandata" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_6portataRipresa" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_6potenzaRipresa" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L9_6recuperatoreAriaAmbSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L9_6dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L9_6dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_6tipologia" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<!--xs:choice minOccurs="0" maxOccurs="1"-->
+				<!-- attenzione: se L9_6installato=FALSE su libretto viene valorizzata la voce INDIPENDENTE -->
+				<xs:element name="L9_6installato" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<!--xs:element name="L9_6indipendente" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				</xs:choice-->
+				<xs:element name="L9_6portataMandata" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_6potenzaMandata" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_6portataRipresa" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L9_6potenzaRipresa" type="decimaleType8_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L10_1ventilazioneMeccanica">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L10_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L10_1dataDismissione" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L10_1fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L10_1modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice minOccurs="0" maxOccurs="1">
+				 <!--xs:element name="L10_1tipoSoloEstrazione" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				 <xs:element name="L10_1tipoRecuperoScambiatore" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				 <xs:element name="L10_1tipoRecuperoTermodinamico" type="xs:boolean" minOccurs="1" maxOccurs="1"/-->
+					 <xs:element name="L10_1tipologia" minOccurs="1" maxOccurs="1">
+					  <xs:simpleType>
+					   <xs:annotation>
+						<xs:documentation>
+						Valori ammessi:
+						1-sola estrazione
+						2-Flusso doppio con recupero tramite scambiatore a flussi incrociati
+						3-Flusso doppio con recupero termodinamico
+						</xs:documentation>
+					   </xs:annotation>
+					   <xs:restriction base="xs:integer">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+						<xs:enumeration value="3"/>
+					   </xs:restriction>
+					  </xs:simpleType>
+					 </xs:element>
+					 <xs:element name="L10_1tipologiaAltro" minOccurs="1" maxOccurs="1">
+					  <xs:simpleType>
+					   <xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					   </xs:restriction>
+					  </xs:simpleType>
+					 </xs:element>
+				</xs:choice>
+				<xs:element name="L10_1portataMax" type="decimaleType7_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L10_1rendimentoRecupero" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L10_1ventilazioneMeccanicaSostituito">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L10_1dataInstallazione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L10_1dataDismissione" type="xs:date" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L10_1fabbricante" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getMarcaCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="4999"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L10_1modello" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="300"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:choice minOccurs="0" maxOccurs="1">
+				 <!--xs:element name="L10_1tipoSoloEstrazione" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				 <xs:element name="L10_1tipoRecuperoScambiatore" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				 <xs:element name="L10_1tipoRecuperoTermodinamico" type="xs:boolean" minOccurs="1" maxOccurs="1"/-->
+					 <xs:element name="L10_1tipologia" minOccurs="1" maxOccurs="1">
+					  <xs:simpleType>
+					   <xs:annotation>
+						<xs:documentation>
+						Valori ammessi:
+						1-sola estrazione
+						2-Flusso doppio con recupero tramite scambiatore a flussi incrociati
+						3-Flusso doppio con recupero termodinamico
+						</xs:documentation>
+					   </xs:annotation>
+					   <xs:restriction base="xs:integer">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+						<xs:enumeration value="3"/>
+					   </xs:restriction>
+					  </xs:simpleType>
+					 </xs:element>
+					 <xs:element name="L10_1tipologiaAltro" minOccurs="1" maxOccurs="1">
+					  <xs:simpleType>
+					   <xs:restriction base="xs:string">
+						<xs:maxLength value="100"/>
+					   </xs:restriction>
+					  </xs:simpleType>
+					 </xs:element>
+				</xs:choice>
+				<xs:element name="L10_1portataMax" type="decimaleType7_2" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L10_1rendimentoRecupero" type="decimaleType7_2" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L14_1datiConsumoCombustibile">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L14_1esercizioDa" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_1esercizioA" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_1acquisti" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L14_1letturaIniziale" type="decimaleType" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_1letturaFinale" type="decimaleType" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_1consumo" type="decimaleType" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L14_2datiConsumoEnergiaElettrica">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L14_2esercizioDa" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_2esercizioA" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_2letturaIniziale" type="decimaleType" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_2letturaFinale" type="decimaleType" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_2consumo" type="decimaleType" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L14_3datiConsumoAcqua">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L14_3esercizioDa" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_3esercizioA" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_3letturaIniziale" type="decimaleType" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_3letturaFinale" type="decimaleType" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_3consumo" type="decimaleType" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="L14_4datiConsumoProdottiChimici">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="L14_4esercizioDa" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_4esercizioA" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_4circuitoImpiantoTermico" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_4circuitoACS" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_4circuitoAltro" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="L14_4nomeProdotto" minOccurs="0" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="L14_4consumo" type="decimaleType" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="L14_4unitaMisura" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Per i valori ammessi vedere i valori esposti attraverso i web service
+								http://www.sistemapiemonte.it/cms/privati/ambiente-e-energia/servizi/810-catasto-impianti-termici/3159-invio-telematico
+								servizio "getUnitaMisuraCIT"
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1"/>
+							<xs:maxInclusive value="10"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="flgDescrizioneType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="flg" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+				<xs:element name="descrizione" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="100"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="descrizioneDecimaleType">
+	  <xs:complexType>
+	   <xs:sequence>
+	    <xs:element name="descrizione" minOccurs="0" maxOccurs="1" nillable="true">
+	     <xs:simpleType>
+	      <xs:restriction base="xs:string">
+	       <xs:maxLength value="100"/>
+	      </xs:restriction>
+	     </xs:simpleType>
+	    </xs:element>
+	    <xs:element name="decimale" type="decimaleType" minOccurs="0" maxOccurs="1" nillable="true"/>
+	   </xs:sequence>
+	  </xs:complexType>
+	 </xs:element>
+
+
+	<xs:element name="percentoDecimaleType">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="percento" type="percentoType" minOccurs="0" maxOccurs="1" nillable="true"/>
+				<xs:element name="ph" minOccurs="0" maxOccurs="1" nillable="true">
+					<xs:simpleType>
+						<xs:restriction base="xs:decimal">
+							<xs:totalDigits value="4"/>
+							<xs:fractionDigits value="2"/>
+							<xs:maxInclusive value="14.00"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:simpleType name="decimaleType">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="11"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+<xs:simpleType name="decimaleType4_2">
+  <xs:restriction base="xs:decimal">
+   <xs:totalDigits value="4"/>
+   <xs:fractionDigits value="2"/>
+   <xs:maxInclusive value="99.00"/>
+  </xs:restriction>
+ </xs:simpleType>
+ 
+	<xs:simpleType name="decimaleType6_2">
+	  <xs:restriction base="xs:decimal">
+	   <xs:totalDigits value="6"/>
+	   <xs:fractionDigits value="2"/>
+	   <xs:maxInclusive value="9999.99"/>
+	  </xs:restriction>
+	 </xs:simpleType>
+	 
+	<xs:simpleType name="decimaleType7_2">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="7"/>
+			<xs:fractionDigits value="2"/>
+			<xs:maxInclusive value="99999.99"/>
+
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="decimaleType8_2">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="8"/>
+			<xs:fractionDigits value="2"/>
+			<xs:maxInclusive value="999999.99"/>
+
+		</xs:restriction>
+	</xs:simpleType>
+	
+	 <xs:simpleType name="decimaleType8_3">
+	  <xs:restriction base="xs:decimal">
+	   <xs:totalDigits value="8"/>
+	   <xs:fractionDigits value="3"/>
+	   <xs:maxInclusive value="99999.999"/>
+	  </xs:restriction>
+	 </xs:simpleType>
+ 
+ 
+
+	<xs:simpleType name="decimaleType9_4">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="9"/>
+			<xs:fractionDigits value="4"/>
+			<xs:maxInclusive value="99999.9999"/>
+
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="percentoType">
+		<xs:annotation>
+			<xs:documentation>intero da 0 a 100</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0"/>
+			<xs:maxInclusive value="100"/>
+			<xs:totalDigits value="4"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="gradiCentigradiType">
+		<xs:restriction base="xs:decimal">
+			<xs:totalDigits value="3"/>
+			<xs:fractionDigits value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+</xs:schema>
+
+
+
+

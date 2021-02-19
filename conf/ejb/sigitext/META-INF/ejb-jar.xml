@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN" "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+<ejb-jar>
+
+	<enterprise-beans>
+	    <!-- 
+			===================================================================
+			Implementazione del servizio
+			===================================================================
+		-->
+		<session>
+			<ejb-name>SigitextBean</ejb-name>
+			<!--<home>it.csi.sigit.sigitext.business.sigitext.SigitextHome</home>
+			<remote>it.csi.sigit.sigitext.business.sigitext.SigitextRemote</remote>-->
+			<local-home>it.csi.sigit.sigitext.business.sigitext.SigitextLocalHome</local-home>
+			<local>it.csi.sigit.sigitext.business.sigitext.SigitextLocal</local>
+			<ejb-class>it.csi.sigit.sigitext.business.sigitext.SigitextBean</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>				
+		</session>				
+		
+		<!-- 
+			===================================================================
+			Porta applicativa del servizio
+			===================================================================
+		-->
+		<session>
+			<ejb-name>SigitextPA</ejb-name>
+			<home>it.csi.csi.porte.ejb20.PortaApplicativaHome</home>
+			<remote>it.csi.csi.porte.ejb20.PortaApplicativaEJB</remote>
+			<ejb-class>
+				it.csi.csi.porte.ejb20.PortaApplicativaBean
+			</ejb-class>
+			<session-type>Stateless</session-type>
+			<transaction-type>Container</transaction-type>
+			<env-entry>
+				<env-entry-name>defpa</env-entry-name>
+				<env-entry-type>java.lang.String</env-entry-type>
+				<env-entry-value>/defpa_sigitext.xml</env-entry-value>
+			</env-entry>
+			<ejb-local-ref>
+				<description>reference all bean che implementa il servizio</description>
+				<ejb-ref-name>SigitextBean</ejb-ref-name>
+				<ejb-ref-type>Session</ejb-ref-type>
+				<local-home>it.csi.sigit.sigitext.business.sigitext.SigitextLocalHome</local-home>
+				<local>it.csi.sigit.sigitext.business.sigitext.SigitextLocal</local>
+				<ejb-link>SigitextBean</ejb-link>
+			</ejb-local-ref>
+		</session>
+		
+		
+		
+	</enterprise-beans>
+	
+	<assembly-descriptor>
+		<!-- ruoli di sicurezza -->
+		
+		
+		<!-- transazioni -->
+		
+			
+		<container-transaction>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>testResources</method-name>
+			</method>
+		
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>selfCheck</method-name>
+			</method>
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>hasSelfCheck</method-name>
+			</method>
+		
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getCombustibileCIT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getFluidoCIT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getMarcaCIT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getUnitaMisuraCIT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getImpiantoByCodiceJWT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getImpiantoByPODJWT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getImpiantoByPDRJWT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getLibrettoByUIDJWT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getXMLLibrettoNowJWT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getLibrettoNowJWT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getXMLLibrettoConsolidatoJWT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>uploadXMLLibrettoJWT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>uploadXMLControlloJWT</method-name>
+			</method>
+		
+			<method>
+				<ejb-name>SigitextBean</ejb-name>
+				<method-name>getImpiantiByFiltroJWT</method-name>
+			</method>
+		
+		<trans-attribute>NotSupported</trans-attribute>
+		</container-transaction>
+						
+		
+				
+		
+						
+		
+		
+		<container-transaction>
+			<method>
+				<ejb-name>SigitextPA</ejb-name>
+				<method-name>*</method-name>
+			</method>
+			<trans-attribute>NotSupported</trans-attribute>
+		</container-transaction>
+	</assembly-descriptor>
+	
+</ejb-jar>

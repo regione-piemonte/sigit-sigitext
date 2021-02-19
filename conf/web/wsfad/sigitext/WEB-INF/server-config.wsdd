@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="attachments.Directory" value="attachments"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="axis.sendMinimizedElements" value="true"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <service name="Version2" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+
+ <service name="sigitextSigitext" provider="Handler"   >
+  <parameter name="wsdlPortType" value="sigitextSigitext" />
+  <parameter name="allowedMethods" value="*"/>
+  <parameter name="defPDResource" value="/defpdelegata_embedded_sigitext.xml"/>
+  <parameter name="className" value="it.csi.sigit.sigitext.interfacecsi.sigitext.SigitextSrv"/>
+  <parameter name="handlerClass" value="it.csi.csi.wrapper.jaxrpc.axis.PDProvider"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CSIException" qname="ns2:CSIException" xmlns:ns2="urn:sigitextSigitext"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UserException" qname="ns3:UserException" xmlns:ns3="urn:sigitextSigitext"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.SystemException" qname="ns4:SystemException" xmlns:ns4="urn:sigitextSigitext"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.UnrecoverableException" qname="ns5:UnrecoverableException" xmlns:ns5="urn:sigitextSigitext"/>
+  <beanMapping languageSpecificType="java:it.csi.csi.wrapper.CommunicationException" qname="ns6:CommunicationException" xmlns:ns6="urn:sigitextSigitext"/>
+  <!-- mapping dell'oggetto DatiMessaggio utilizzato nelle chiamate asincrone -->
+  <beanMapping languageSpecificType="java:it.csi.csi.util.DatiMessaggio" qname="ns7:DatiMessaggio" xmlns:ns7="urn:sigitextSigitext"/>
+  <!-- mapping delle user defined entities -->
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.CodiceDescrizione" qname="ns10:CodiceDescrizione" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.Impianto" qname="ns10:Impianto" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.RifCatastale" qname="ns10:RifCatastale" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.RappControllo" qname="ns10:RappControllo" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.Utente" qname="ns10:Utente" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.Documento" qname="ns10:Documento" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.Libretto" qname="ns10:Libretto" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.UtenteJWT" qname="ns10:UtenteJWT" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.dto.sigitext.ImpiantoFiltro" qname="ns10:ImpiantoFiltro" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <!-- mapping delle user defined exceptions -->
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.exception.sigitext.SigitextException" qname="ns10:SigitextException" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.exception.sigitext.SigitUserNotAuthorizedException" qname="ns10:SigitUserNotAuthorizedException" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  <beanMapping languageSpecificType="java:it.csi.sigit.sigitext.exception.sigitext.SigitExcessiveResultsException" qname="ns10:SigitExcessiveResultsException" xmlns:ns10="urn:sigitextSigitext"/>
+  
+  
+ </service>
+
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>

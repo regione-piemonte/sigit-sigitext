@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-app>
+  <!-- forza l'ordine di startup dei moduli in modo che il sar 
+       (che e' in fondo all'elenco) salga alla fine -->
+  <module-order>strict</module-order>
+</jboss-app>

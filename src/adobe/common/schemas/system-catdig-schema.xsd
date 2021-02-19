@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/catdig/system"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/catdig/system">
+  
+  <xs:element name="system">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="catDig"/>
+      </xs:sequence>
+    </xs:complexType> 
+  </xs:element>
+  <xs:element name="catDig">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="tipoOperazione"/>
+        <xs:element ref="moduloEditabile"/>
+        <xs:element ref="barcodeVisibile"/>
+        <xs:element ref="btSalva"/>
+        <xs:element ref="btPEC"/>
+        <xs:element ref="destinatarioMail"/>
+        <xs:element ref="oggettoMail"/>
+        <xs:element ref="bodyMail"/>
+        <xs:element ref="codiceRepertorio"/>
+		<xs:element ref="allegato" minOccurs="0" maxOccurs="unbounded"/>		
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  
+  <xs:element name="allegato">
+	<xs:complexType>
+	    <xs:sequence>
+	      <xs:element name="nomeFile" type="xs:string"/>
+	    </xs:sequence>
+	</xs:complexType>
+	</xs:element>  
+
+  
+  <xs:element name="tipoOperazione">
+  	<xs:simpleType>
+		<xs:restriction base="xs:string">
+      		<xs:enumeration value="DOWNLOAD"/>
+      		<xs:enumeration value="EDIT"/>
+      		<xs:enumeration value="EMAIL"/>
+    	</xs:restriction>
+  	</xs:simpleType>
+  </xs:element>
+  
+  <xs:element name="moduloEditabile" type="xs:boolean"/>
+  <xs:element name="barcodeVisibile" type="xs:boolean"/>
+  <xs:element name="btSalva" type="xs:boolean"/>
+  <xs:element name="btPEC" type="xs:boolean"/>
+  <xs:element name="destinatarioMail" type="xs:string"/>
+  <xs:element name="oggettoMail" type="xs:string"/>
+  <xs:element name="bodyMail" type="xs:string"/>
+  <xs:element name="codiceRepertorio" type="xs:string"/>
+  
+  <xs:complexType name="imageJPG">
+	<xs:simpleContent>
+		<xs:extension base="xs:hexBinary">
+			<xs:attribute name="contentType" fixed="image/jpg"/>
+				<xs:attribute name="transferEncoding" fixed="base64"/>
+		</xs:extension>
+	</xs:simpleContent>
+  </xs:complexType>
+
+</xs:schema>
+

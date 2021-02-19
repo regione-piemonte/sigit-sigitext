@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/allegato2/data"
+	       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/allegato2/data"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+
+<xs:element name="MODII">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="Richiesta"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+  <xs:element name="Richiesta">
+      <xs:complexType>
+      <xs:sequence>
+	    <xs:element ref="datiManutentore"/> 
+        <xs:element ref="datiIntestazione"/>
+        <xs:element ref="datiAllegato"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI DEL MANUTENTORE RESPONSBAILE DEL RAPPORTO DI CONTROLLO -->
+  <xs:element name="datiManutentore"> 
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="siglaREA" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="numeroREA" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="codiceFiscale" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- DATI INTESTAZIONE MODULO -->
+  <xs:element name="datiIntestazione">
+    <xs:complexType>
+      <xs:sequence>
+          <!-- intestazione modulo -->
+          <xs:element name="codiceBollino" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		  <xs:element name="codiceCatasto" type="xs:string" minOccurs="1" maxOccurs="1"/> 
+		  <xs:element name="A_F_dataControllo" type="xs:date" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI DEL MODULO CHE SI RIPETONO -->
+  <xs:element name="datiAllegato">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element ref="datiIdentificativi"/>
+		  <xs:element ref="documentazioneTecnica"/>
+          <xs:element ref="trattamentoAcqua"/>
+		  <xs:element ref="controlloImpianto"/>
+		  <xs:element ref="checkList"/>
+          <xs:element ref="datiTecnico"/>
+		  
+          <xs:element name="allegatoII">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowAllegatoII" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+
+  <xs:element name="rowAllegatoII">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_E_numGT" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+        
+         
+         <xs:element name="tabFumi">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowFumi" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+        <xs:element ref="controlloVerificaEnergetica"/>     
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="rowFumi">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="A_E_tempFumi" type="Decimale42" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_tempAria" type="Decimale42" minOccurs="1" maxOccurs="1" />
+              <xs:element name="A_E_O2" type="Decimale32" minOccurs="1" maxOccurs="1" />
+              <xs:element name="A_E_CO2" type="Decimale32" minOccurs="1" maxOccurs="1" />
+              <xs:element name="A_E_bacharach1" type="Decimale42" nillable="true"/>
+              <xs:element name="A_E_bacharach2" type="Decimale42" nillable="true"/>
+              <xs:element name="A_E_bacharach3" type="Decimale42" nillable="true"/>
+              <xs:element name="A_E_COcorretto" type="Decimale72" minOccurs="1" maxOccurs="1" />
+              <xs:element name="A_E_rendimCombu" type="Decimale32" minOccurs="1" maxOccurs="1" />
+              <xs:element name="A_E_rendimentoLegge" type="Decimale32" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_nox" type="Decimale72" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_moduloTermico" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+              <xs:element name="A_E_portataCombu" type="Portata"/>
+              <xs:element name="A_E_valorePortata" type="Decimale42" nillable="true"/>
+              <xs:element name="A_E_COfumiSecchi" type="Decimale42" nillable="true"/>
+              <xs:element name="A_E_rispettoIndBacharach" type="xs:boolean" nillable="true"/>
+              <xs:element name="A_E_minimo" type="xs:boolean" nillable="true"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+  
+
+  <!-- A. DATI IDENTIFICATIVI -->
+  <xs:element name="datiIdentificativi">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_A_potenzaTermicaNomTotMax" type="Decimale62" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- B. DOCUMENTAZIONE TECNICA -->
+  <xs:element name="documentazioneTecnica">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_B_flagDichiarazConf" type="xs:boolean" minOccurs="1" maxOccurs="1"/> <!--0=FALSE; 1=TRUE--> 
+         <xs:element name="A_B_flagManutGen" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_B_flagLibrettoImp" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_B_flagLibrettoComp" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- C. TRATTAMENTO ACQUA -->
+  <xs:element name="trattamentoAcqua">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_C_flagTrattH2ONR" type="xs:boolean"/>
+         <xs:element name="A_C_flagTrattAcsNR" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- D. CONTROLLO IMPIANTO -->
+  <xs:element name="controlloImpianto">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_D_flagInterno" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagCanaleFumo" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagEsterno" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagSistRegolaz" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagAperture" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagPerdite" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagDimensioni" type="Valori012" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="A_D_flagTenuta" type="Valori012" minOccurs="1" maxOccurs="1"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- E. CONTROLLO E VERIFICA ENERGETICA GT -->
+   <xs:element name="controlloVerificaEnergetica">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_E_potenzaFocolare" type="Decimale62" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagClimatizInv" type="xs:boolean"/>
+          <xs:element name="A_E_flagProduzACS" type="xs:boolean"/>
+          <xs:element name="A_E_flagDispComando" type="Valori012" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagDispSicu" type="Valori012" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagValvSicu" type="Valori012" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagScambiatore" type="Valori012" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagRiflusso" type="Valori012" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_flagRisultati" type="Valori012" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_altroRifNormativo" type="Note500"/>
+          <xs:element name="A_E_flagEvacFumi" type="FumiFN" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_E_depressCanaleFumo" type="Decimale52" nillable="true"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+  
+  <!-- F. CHECK LIST -->
+   <xs:element name="checkList">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_F_flagValvole" type="xs:boolean"/>
+          <xs:element name="A_F_flagIsolamento" type="xs:boolean"/>
+          <xs:element name="A_F_flagSistTrattACS" type="xs:boolean"/>
+          <xs:element name="A_F_flagSistRegolaz" type="xs:boolean"/>
+          
+          <xs:element name="A_F_osservazioni" type="Note1000"/>
+          <xs:element name="A_F_raccomandazioni" type="Note1000"/>
+          <xs:element name="A_F_prescrizioni" type="Note1000"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+
+  <!-- sezione dati del tecnico -->
+   <xs:element name="datiTecnico">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_F_flagFunzImp" type="xs:boolean" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_F_dataIntervento" type="xs:date" />
+          <xs:element name="A_F_orarioArrivo" type="xs:string"/>
+          <xs:element name="A_F_orarioPartenza" type="xs:string"/>
+          <xs:element name="A_F_nomeTecnico" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_F_cognomeTecnico" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_F_firmaTecnico" type="xs:string"/>
+          <xs:element name="A_F_firmaResp" type="xs:string"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+	
+	
+	
+	<!-- sezione variabili -->
+	<xs:simpleType name="Valori012">
+		    <!--xs:annotation>
+	            <xs:documentation>Valori ammessi:
+                               0-"NO"
+                               1-"SI"
+                               2-"NC"
+			   </xs:documentation>
+	        </xs:annotation-->
+			<xs:restriction base="xs:integer">
+				<xs:enumeration value="0"/>
+                <xs:enumeration value="1"/>
+                <xs:enumeration value="2"/>
+            </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Decimale72">
+		    <xs:restriction base="xs:decimal"> 
+                <xs:totalDigits value="9"/>
+                <xs:fractionDigits value="2"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Decimale62">
+		    <xs:restriction base="xs:decimal"> 
+                <xs:totalDigits value="8"/>
+                <xs:fractionDigits value="2"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Decimale52">
+		    <xs:restriction base="xs:decimal"> 
+                <xs:totalDigits value="7"/>
+                <xs:fractionDigits value="2"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Decimale42">
+		    <xs:restriction base="xs:decimal"> 
+                <xs:totalDigits value="6"/>
+                <xs:fractionDigits value="2"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Decimale32">
+		    <xs:restriction base="xs:decimal"> 
+                <xs:totalDigits value="5"/>
+                <xs:fractionDigits value="2"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Note1000">
+		    <xs:restriction base="xs:string">
+			     <xs:maxLength value="1000"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="Note500">
+		    <xs:restriction base="xs:string">
+			     <xs:maxLength value="500"/>
+		    </xs:restriction>
+	</xs:simpleType>
+    
+	<xs:simpleType name="FumiFN">
+		    <xs:restriction base="xs:string">
+				 <xs:enumeration value="F"/>
+                 <xs:enumeration value="N"/>
+			</xs:restriction>
+	</xs:simpleType>
+	
+ 	<xs:simpleType name="Portata">
+		    <xs:restriction base="xs:string">
+				 <xs:enumeration value="m3/h"/>
+                 <xs:enumeration value="Kg/h"/>
+			</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

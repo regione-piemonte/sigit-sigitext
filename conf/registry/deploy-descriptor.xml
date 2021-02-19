@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy-descriptor 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:noNamespaceSchemaLocation="../../conf/deploy-descriptor.xsd">
+	<rilascio
+		ambiente="@rilascio.ambiente@"
+		cliente="@rilascio.cliente@"
+		istanza="@rilascio.istanza@"
+		unita-installazione="sigitext"
+		staging="false">
+		<prodotto codice="SIGIT" versione="11.1.0">
+			<descrizione>@prodotto.descrizione@</descrizione>
+		</prodotto>
+		<componente codice="SIGITEXT">
+			<descrizione>@componente.descrizione@</descrizione>
+		</componente>
+	</rilascio>
+	<lista-servizi>
+		<servizio nome="sigitext" versione-intf="2.1.0" versione-impl="2.1.0" tipo-servizio="A" tipo-erogazione="O">
+			<versione-retrocompatibile>true</versione-retrocompatibile>
+		</servizio>
+	</lista-servizi>
+	<lista-binding>
+	    <binding servizio="sigitext" versione="2.1.0" protocollo="CSI-java-jnp">
+			<endpoint>
+				<csi-endpoint pd-file="defpd_sigitext_CSI_java_jnp.xml">
+					<override-url>@sigit.sigitext.sigitext.pa.url@</override-url>
+				</csi-endpoint>
+			</endpoint>
+		</binding>
+	    <binding servizio="sigitext" versione="2.1.0" protocollo="WS-SOAP">
+			<endpoint>
+				<ws-endpoint wsdl="@sigit.sigitext.sigitext.wsfad.server.prefix@/sigitextApplSigitextWsfad/services/sigitextSigitext?wsdl">
+					<url>@sigit.sigitext.sigitext.wsfad.server.prefix@/sigitextApplSigitextWsfad/services/sigitextSigitext</url>
+				</ws-endpoint>
+			</endpoint>
+		</binding>
+	</lista-binding>
+</deploy-descriptor>

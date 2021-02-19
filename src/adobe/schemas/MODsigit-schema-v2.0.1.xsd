@@ -1,0 +1,2209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/libretto/data"
+	       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:catdig="http://www.csi.it/sigit/sigitwebn/xml/catdig/system"
+           targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/libretto/data"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+<xs:import namespace="http://www.csi.it/sigit/sigitwebn/xml/catdig/system" schemaLocation="../common/schemas/system-catdig-schema.xsd"/>
+
+<xs:element name="MOD">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="Richiesta"/>
+			<xs:element ref="catdig:system"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+  <xs:element name="Richiesta">
+      <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="datiPrecompilati"/>
+        <xs:element ref="datiModulo"/>
+        <xs:element ref="datiSchedaIdentificativaImp"/>
+        <xs:element ref="datiSchedaTrattH2O"/>
+        <xs:element ref="datiSchedaGT"/>
+        <xs:element ref="datiSchedaBR"/>
+        <xs:element ref="datiSchedaRC"/>
+        <xs:element ref="datiSchedaGF"/>
+        <xs:element ref="datiSchedaSC"/>
+        <xs:element ref="datiSchedaCG"/>
+        <xs:element ref="datiSchedaCS"/>
+        <xs:element ref="datiSchedaAG"/>
+        <xs:element ref="datiSchedaSistemiRegolaz"/>
+        <xs:element ref="datiSchedaSistemiDistrib"/>
+        <xs:element ref="datiSchedaSistemaEmissione"/>
+        <xs:element ref="datiSchedaSistemaAC"/>
+        <xs:element ref="datiAltriComponentiTE"/>
+        <xs:element ref="datiAltriComponentiRV"/>
+        <xs:element ref="datiAltriComponentiSC"/>
+        <xs:element ref="datiAltriComponentiCI"/>
+        <xs:element ref="datiAltriComponentiRC"/>
+        <xs:element ref="datiAltriComponentiUT"/>
+        <xs:element ref="datiVentilazMeccanicaVM"/>
+        <xs:element ref="datiRisultatiGT"/>
+        <xs:element ref="datiRisultatiGF"/>
+        <xs:element ref="datiRisultatiSC"/>
+        <xs:element ref="datiRisultatiCG"/>
+        <xs:element ref="datiInterventiControllo"/>
+        <xs:element ref="datiRisultatiIspez"/>
+        <xs:element ref="datiConsumoCombu"/>
+        <xs:element ref="datiConsumoEE"/>
+        <xs:element ref="datiConsumoH2O"/>
+        <xs:element ref="datiConsumoProdottiChimici"/>
+        <!--
+        -->
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI precompilati da web -->
+  <xs:element name="datiPrecompilati">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="statoModulo" type="xs:string"/>  <!-- BOZZA; DEFINITIVO -->
+          <xs:element name="codice_impianto" type="xs:string"/>
+          <!-- intestazione modulo -->
+          <xs:element name="codiceCatasto" type="xs:string"/>
+          <!-- 1.2 UBICAZIONE E DESTINAZIONE DELL'EDIFICIO -->
+          <xs:element name="L1_2indirizzo" type="xs:string"/>
+          <xs:element name="L1_2civico" type="xs:string"/>
+          <xs:element name="L1_2palazzo" type="xs:string"/>
+          <xs:element name="L1_2scala" type="xs:string"/>
+          <xs:element name="L1_2interno" type="xs:string"/>
+          <xs:element name="L1_2comune" type="xs:string"/>
+          <xs:element name="L1_2prov" type="xs:string"/>
+
+          <xs:element name="sezCatasto">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowCatasto" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+         <!-- 1.6 RESPONSABILE DELL'IMPIANTO -->
+         <xs:element name="L1_6cognome" type="xs:string"/>
+         <xs:element name="L1_6nome" type="xs:string"/>
+         <xs:element name="L1_6cf" type="xs:string"/>
+         <xs:element name="L1_6ragSociale" type="xs:string"/>
+         <xs:element name="L1_6piva" type="xs:string"/>
+         
+          <!-- 3. NOMINA TERZO RESPONSABILE IMPIANTO -->
+          <xs:element name="sezNomine">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowNomine" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+	     
+         <!-- precompilazione combo della sezione Generatori e sez 14-->
+    	  <xs:element name="elencoFabbricante">
+    			<xs:complexType>
+    				<xs:sequence>
+    					<xs:element name="fabbricante" minOccurs="1" maxOccurs="unbounded">
+    						<xs:complexType>
+    							<xs:sequence>
+    			    				<xs:element name="codice" type="xs:string"/>
+    			    				<xs:element name="descrizione" type="xs:string"/>
+    							</xs:sequence>
+    						</xs:complexType>
+        				</xs:element>
+    				</xs:sequence>
+    			</xs:complexType>
+    		</xs:element>
+
+    	  <xs:element name="elencoCombustibile">
+    			<xs:complexType>
+    				<xs:sequence>
+    					<xs:element name="combustibile" minOccurs="1" maxOccurs="unbounded">
+    						<xs:complexType>
+    							<xs:sequence>
+    			    				<xs:element name="codice" type="xs:string"/>
+    			    				<xs:element name="descrizione" type="xs:string"/>
+    							</xs:sequence>
+    						</xs:complexType>
+        				</xs:element>
+    				</xs:sequence>
+    			</xs:complexType>
+    		</xs:element>
+
+    	  <xs:element name="elencoFluidoTermoVett">
+    			<xs:complexType>
+    				<xs:sequence>
+    					<xs:element name="fluidoTermoVett" minOccurs="1" maxOccurs="unbounded">
+    						<xs:complexType>
+    							<xs:sequence>
+    			    				<xs:element name="codice" type="xs:string"/>
+    			    				<xs:element name="descrizione" type="xs:string"/>
+    							</xs:sequence>
+    						</xs:complexType>
+        				</xs:element>
+    				</xs:sequence>
+    			</xs:complexType>
+    		</xs:element>
+    		
+             <!-- precompilazione combo unita' misura -->
+        	  <xs:element name="elencoUM">
+        			<xs:complexType>
+        				<xs:sequence>
+        					<xs:element name="unitaMisura" minOccurs="1" maxOccurs="unbounded">
+        						<xs:complexType>
+        							<xs:sequence>
+        			    				<xs:element name="codice" type="xs:string"/>
+        			    				<xs:element name="descrizione" type="xs:string"/>
+        							</xs:sequence>
+        						</xs:complexType>
+            				</xs:element>
+        				</xs:sequence>
+        			</xs:complexType>
+        		</xs:element>
+	     
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="rowCatasto">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L1_2sezione" type="xs:string"/>
+              <xs:element name="L1_2foglio" type="xs:string"/>
+              <xs:element name="L1_2particella" type="xs:string"/>
+              <xs:element name="L1_2sub" type="xs:string"/>
+              <xs:element name="L1_2pod" type="xs:string"/>
+              <xs:element name="L1_2pdr" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+   
+   <xs:element name="rowNomine">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L3cognome" type="xs:string"/>
+              <xs:element name="L3nome" type="xs:string"/>
+              <xs:element name="L3codiceFiscale" type="xs:string"/>
+              <xs:element name="L3ragioneSociale" type="xs:string"/>
+              <xs:element name="L3piva" type="xs:string"/>
+              <xs:element name="L3flagProprietario" type="xs:boolean"/>
+              <xs:element name="L3flagAmministratore" type="xs:boolean"/>
+              <xs:element name="L3ragSocialeDitta" type="xs:string"/>
+              <xs:element name="L3cciaa" type="xs:string"/>
+              <xs:element name="L3dataValiditaContrattoDal" type="xs:date"/>
+              <xs:element name="L3dataValiditaContrattoAl" type="xs:date"/>
+			  <xs:element name="L3apparecchiature" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+  
+  
+  <!-- DATI FUNZIONALI AL COMPORTAMENTO DEL MODULO -->
+  <xs:element name="datiModulo">
+    <xs:complexType>
+      <xs:sequence>
+          <!--
+          <xs:element name="flagPrecompilazione" type="xs:boolean"/>
+          -->
+          <xs:element name="flag_controllo_bozza" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- 1. SCHEDA IDENTIFICATIVA DELL'IMPIANTO -->
+  <xs:element name="datiSchedaIdentificativaImp">
+    <xs:complexType>
+      <xs:sequence>
+         <!-- 1.1 TIPOLOGIA INTERVENTO -->
+         <xs:element name="L1_1dataIntervento" type="xs:date"/>
+         <xs:element name="L1_1flagNuovaInst" type="xs:boolean"/>
+         <xs:element name="L1_1flagRistrutt" type="xs:boolean"/>
+         <xs:element name="L1_1flagSostGenerat" type="xs:boolean"/>
+         <xs:element name="L1_1flagCompilaLibretto" type="xs:boolean"/>
+          
+	     <xs:element name="L1_2flagUnitaImmSingle" type="xs:boolean"/>
+         <xs:element name="L1_2flagE1" type="xs:boolean"/>
+         <xs:element name="L1_2flagE2" type="xs:boolean"/>
+         <xs:element name="L1_2flagE3" type="xs:boolean"/>
+         <xs:element name="L1_2flagE4" type="xs:boolean"/>
+         <xs:element name="L1_2flagE5" type="xs:boolean"/>
+         <xs:element name="L1_2flagE6" type="xs:boolean"/>
+         <xs:element name="L1_2flagE7" type="xs:boolean"/>
+         <xs:element name="L1_2flagE8" type="xs:boolean"/>
+         <xs:element name="L1_2volLordoRisc" type="xs:decimal"/>
+         <xs:element name="L1_2volLordoRaffr" type="xs:decimal"/>
+         
+         <!-- 1.3 IMPIANTO TERMICO DESTINATO A SODDISFARE I SEGUENTI SERVIZI -->
+         <xs:element name="L1_3flagProdACS" type="xs:boolean"/>
+         <xs:element name="L1_3potUtileACS" type="xs:decimal"/>
+         <xs:element name="L1_3flagClimaInv" type="xs:boolean"/>
+         <xs:element name="L1_3potUtileClimaInv" type="xs:decimal"/>
+         <xs:element name="L1_3flagClimaEst" type="xs:boolean"/>
+         <xs:element name="L1_3potUtileClimaEst" type="xs:decimal"/>
+         <xs:element name="L1_3flagAltro" type="xs:boolean"/>
+         <xs:element name="L1_3descrAltro" type="xs:string"/>
+         
+         <!-- 1.4 TIPOLOGIA FLUIDO VETTORE -->
+         <xs:element name="L1_4flagH2O" type="xs:boolean"/>
+         <xs:element name="L1_4flagAria" type="xs:boolean"/>
+         <xs:element name="L1_4flagAltro" type="xs:boolean"/>
+         <xs:element name="L1_4descrAltro" type="xs:string"/>
+          
+         <!-- 1.5 INDIVIDUAZIONE DELLA TIPOLOGIA DEI GENERATORI -->
+         <xs:element name="L1_5flagGeneratCombu" type="xs:boolean"/>
+         <xs:element name="L1_5flagPompaCal" type="xs:boolean"/>
+         <xs:element name="L1_5flagMaccFrigo" type="xs:boolean"/>
+         <xs:element name="L1_5flagTelerisc" type="xs:boolean"/>
+         <xs:element name="L1_5flagTeleraffr" type="xs:boolean"/>
+         <xs:element name="L1_5flagCogener" type="xs:boolean"/>
+         <xs:element name="L1_5flagAltro" type="xs:boolean"/>
+         <xs:element name="L1_5descrAltro" type="xs:string"/>
+         
+         <xs:element name="L1_5flagPannelliSol" type="xs:boolean"/>
+         <xs:element name="L1_5superfLordaTot" type="xs:decimal"/>
+         <xs:element name="L1_5flagAltraIntegraz" type="xs:boolean"/>
+         <xs:element name="L1_5descrAltrIntegraz" type="xs:string"/>
+         <xs:element name="L1_5potUtile" type="xs:decimal"/>
+         <xs:element name="L1_5flagClimaInv" type="xs:boolean"/>
+         <xs:element name="L1_5flagClimaEst" type="xs:boolean"/>
+         <xs:element name="L1_5flagProdACS" type="xs:boolean"/>
+         <xs:element name="L1_5flagAltroPer" type="xs:boolean"/>
+         <xs:element name="L1_5descrAltroPer" type="xs:string"/>
+         
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- 2. TRATTAMENTO ACQUA -->
+  <xs:element name="datiSchedaTrattH2O">
+    <xs:complexType>
+      <xs:sequence>
+          <!-- 2.1 CONTENUTO D'ACQUA DELL'IMPIANTO DI CLIMATIZZAZIONE -->
+          <xs:element name="L2_1contenutoH2OimpClima" type="xs:decimal"/>
+          <!-- 2.2 DUREZZA TOTALE DELL'ACQUA -->
+          <xs:element name="L2_2durezzaTotaleH2O" type="xs:decimal"/>
+          <!-- 2.3 TRATTAMENTO DELL'ACQUA DELL'IMPIANTO DI CLIMATIZZAZIONE (Rif. UNI 8065) -->
+          <xs:element name="L2_3flagAssenteH2Oclima" type="xs:boolean"/>
+          <xs:element name="L2_3flagFiltrazione" type="xs:boolean"/>
+          <xs:element name="L2_3flagAddolcimento" type="xs:boolean"/>
+          <xs:element name="L2_3durezzaTotaleH2O" type="xs:decimal"/>
+          <xs:element name="L2_3flagCondizChimico" type="xs:boolean"/>
+          <xs:element name="L2_3flagAssenteProtGelo" type="xs:boolean"/>
+          <xs:element name="L2_3flagGlicoleEtilenic" type="xs:boolean"/>
+          <xs:element name="L2_3percConcentrazEtilenic" type="xs:decimal"/>
+          <xs:element name="L2_3PHconcentrazEtilenic" type="xs:decimal"/>
+          <xs:element name="L2_3flagGlicolePropLenic" type="xs:boolean"/>
+          <xs:element name="L2_3percConcentrazPropLenic" type="xs:decimal"/>
+          <xs:element name="L2_3PHconcentrazPropLenic" type="xs:decimal"/>
+         <!-- 2.4 TRATTAMENTO DELL'ACQUA CALDA SANITARIA ..... -->
+          <xs:element name="L2_4flagAssente" type="xs:boolean"/>
+          <xs:element name="L2_4flagFiltrazione" type="xs:boolean"/>
+          <xs:element name="L2_4flagAddolcimento" type="xs:boolean"/>
+          <xs:element name="L2_4durezzaTotaleAddolcit" type="xs:decimal"/>
+          <xs:element name="L2_4flagCondizChimico" type="xs:boolean"/>
+
+         <!-- 2.5 TRATTAMENTO DELL'ACQUA DI RAFFREDDAMENTO DELL'IMPIANTO..... -->
+          <xs:element name="L2_5flagAssente" type="xs:boolean"/>
+          <xs:element name="L2_5flagSenzaRecupTerm" type="xs:boolean"/>
+          <xs:element name="L2_5flagRecupTermParz" type="xs:boolean"/>
+          <xs:element name="L2_5flagRecupTermTot" type="xs:boolean"/>
+          <xs:element name="L2_5flagAcquedotto" type="xs:boolean"/>
+          <xs:element name="L2_5flagPozzo" type="xs:boolean"/>
+          <xs:element name="L2_5flagAcquaSuperficiale" type="xs:boolean"/>
+          
+          <xs:element name="L2_5flagFiltrazione" type="xs:boolean"/>
+          <xs:element name="L2_5flagFiltrazSicurezza" type="xs:boolean"/>
+          <xs:element name="L2_5flagFiltrazMasse" type="xs:boolean"/>
+          <xs:element name="L2_5flagFiltrazAltro" type="xs:boolean"/>
+          <xs:element name="L2_5filtrazioneAltro" type="xs:string"/>
+          <xs:element name="L2_5flagFiltrazNoTrattam" type="xs:boolean"/>
+          
+          <xs:element name="L2_5flagTrattamentoH2O" type="xs:boolean"/>
+          <xs:element name="L2_5flagTrattAddolcim" type="xs:boolean"/>
+          <xs:element name="L2_5flagTrattOsmosi" type="xs:boolean"/>
+          <xs:element name="L2_5flagTrattDemineralizz" type="xs:boolean"/>
+          <xs:element name="L2_5flagTrattAltro" type="xs:boolean"/>
+          <xs:element name="L2_5trattamentoAltro" type="xs:string"/>
+          <xs:element name="L2_5flagTrattNoTrattam" type="xs:boolean"/>
+          
+          <xs:element name="L2_5flagCondizChimico" type="xs:boolean"/>
+          <xs:element name="L2_5flagCondChimAnticrosta" type="xs:boolean"/>
+          <xs:element name="L2_5flagCondChimAnticorr" type="xs:boolean"/>
+          <xs:element name="L2_5flagCondChimAnticrostaAntiCorr" type="xs:boolean"/>
+          <xs:element name="L2_5flagCondChimBiocida" type="xs:boolean"/>
+          <xs:element name="L2_5flagCondChimAltro" type="xs:boolean"/>
+          <xs:element name="L2_5condChimAltro" type="xs:string"/>
+          <xs:element name="L2_5flagCondChimNoTrattam" type="xs:boolean"/>
+          
+          <xs:element name="L2_5flagPrefSpurgoAutom" type="xs:boolean"/>
+          <xs:element name="L2_5conducibH2Oingresso" type="xs:decimal"/>
+          <xs:element name="L2_5taraturaSpurgo" type="xs:decimal"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- 4.1 GENERATORI - GT -->
+  <xs:element name="datiSchedaGT">
+    <xs:complexType>
+      <xs:sequence>
+          
+          <xs:element name="sezGruppiTermici">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowGT" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowGT">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L4_1dataControllo" type="xs:date"/>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="flagAnnullaDismissione" type="xs:boolean"/> <!-- 1 (posso annullare la dismissione) / 0 -->
+              <xs:element name="flagGiaPresenteDB" type="xs:boolean"/> <!-- true (era gia' nel db) / false (e' nuovo) -->
+              <xs:element name="L4_1numGT" type="xs:integer"/>
+              <xs:element name="L4_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_1dataDismiss" type="xs:date"/>
+              <xs:element name="L4_1fabbricante" type="xs:string"/>
+              <xs:element name="L4_1modello" type="xs:string"/>
+              <xs:element name="L4_1matricola" type="xs:string"/>
+              <xs:element name="L4_1combustibile" type="xs:string"/>
+              <xs:element name="L4_1fluidoTermoVett" type="xs:string"/>
+              <xs:element name="L4_1potTermUtileMax" type="xs:decimal"/>
+              <xs:element name="L4_1percRendimTermUtileMax" type="xs:decimal"/>
+              <xs:element name="L4_1GTsingolo" type="xs:boolean"/>
+              <xs:element name="L4_1GTModulare" type="xs:boolean"/>
+              <xs:element name="L4_1numAnalisiFumi" type="xs:integer"/>
+              <xs:element name="L4_1tupoRadiante" type="xs:boolean"/>
+              <xs:element name="L4_1GenAriaCalda" type="xs:boolean"/>
+
+              <xs:element name="sezGTsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowGTsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowGTsost">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L4_1dataControllo" type="xs:date"/>
+              <xs:element name="flagRollBack4_1" type="xs:boolean"/> <!-- true (non posso fare rollBack) / false -->
+              <xs:element name="L4_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_1dataDismiss" type="xs:date"/>
+              <xs:element name="L4_1fabbricante" type="xs:string"/>
+              <xs:element name="L4_1modello" type="xs:string"/>
+              <xs:element name="L4_1matricola" type="xs:string"/>
+              <xs:element name="L4_1combustibile" type="xs:string"/>
+              <xs:element name="L4_1fluidoTermoVett" type="xs:string"/>
+              <xs:element name="L4_1potTermUtileMax" type="xs:decimal"/>
+              <xs:element name="L4_1percRendimTermUtileMax" type="xs:decimal"/>
+              <xs:element name="L4_1GTsingolo" type="xs:boolean"/>
+              <xs:element name="L4_1GTModulare" type="xs:boolean"/>
+              <xs:element name="L4_1numAnalisiFumi" type="xs:integer"/>
+              <xs:element name="L4_1tupoRadiante" type="xs:boolean"/>
+              <xs:element name="L4_1GenAriaCalda" type="xs:boolean"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  <!-- 4.2 BRUCIATORI -->
+  <xs:element name="datiSchedaBR">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezBR">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowBR" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowBR">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="flagAnnullaDismissione" type="xs:boolean"/> <!-- 1 (posso annullare la dismissione) / 0 -->
+              <xs:element name="L4_2numBR" type="xs:integer"/>
+              <xs:element name="L4_2numGT" type="xs:integer"/>
+              <xs:element name="L4_2dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_2dataDismiss" type="xs:date"/>
+              <xs:element name="L4_2fabbricante" type="xs:string"/>
+              <xs:element name="L4_2modello" type="xs:string"/>
+              <xs:element name="L4_2matricola" type="xs:string"/>
+              <xs:element name="L4_2tipologia" type="xs:string"/>
+              <xs:element name="L4_2combustibile" type="xs:string"/>
+              <xs:element name="L4_2portataTermMaxNom" type="xs:decimal"/>
+              <xs:element name="L4_2portataTermMinNom" type="xs:decimal"/>
+
+              <xs:element name="sezBRsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowBRsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowBRsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagRollBack4_2" type="xs:boolean"/> <!-- true / false -->
+              <xs:element name="L4_2numGT" type="xs:integer"/>
+              <xs:element name="L4_2dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_2dataDismiss" type="xs:date"/>
+              <xs:element name="L4_2fabbricante" type="xs:string"/>
+              <xs:element name="L4_2modello" type="xs:string"/>
+              <xs:element name="L4_2matricola" type="xs:string"/>
+              <xs:element name="L4_2tipologia" type="xs:string"/>
+              <xs:element name="L4_2combustibile" type="xs:string"/>
+              <xs:element name="L4_2portataTermMaxNom" type="xs:decimal"/>
+              <xs:element name="L4_2portataTermMinNom" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 4.3 RECUPERATORI -->
+  <xs:element name="datiSchedaRC">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezRC">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowRC" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowRC">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="flagAnnullaDismissione" type="xs:boolean"/> <!-- 1 (posso annullare la dismissione) / 0 -->
+              <xs:element name="L4_3numRC" type="xs:integer"/>
+              <xs:element name="L4_3numGT" type="xs:integer"/>
+              <xs:element name="L4_3dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_3dataDismiss" type="xs:date"/>
+              <xs:element name="L4_3fabbricante" type="xs:string"/>
+              <xs:element name="L4_3modello" type="xs:string"/>
+              <xs:element name="L4_3matricola" type="xs:string"/>
+              <xs:element name="L4_3potTermNomTot" type="xs:decimal"/>
+
+              <xs:element name="sezRCsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowRCsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowRCsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagRollBack4_3" type="xs:boolean"/> <!-- true / false -->
+              <xs:element name="L4_3numGT" type="xs:integer"/>
+              <xs:element name="L4_3dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_3dataDismiss" type="xs:date"/>
+              <xs:element name="L4_3fabbricante" type="xs:string"/>
+              <xs:element name="L4_3modello" type="xs:string"/>
+              <xs:element name="L4_3matricola" type="xs:string"/>
+              <xs:element name="L4_3potTermNomTot" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 4.4 MACCHINE FRIGO -->
+  <xs:element name="datiSchedaGF">
+    <xs:complexType>
+      <xs:sequence>
+          
+          <xs:element name="sezGF">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowGF" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowGF">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L4_4dataControllo" type="xs:date"/>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="flagAnnullaDismissione" type="xs:boolean"/> <!-- 1 (posso annullare la dismissione) / 0 -->
+              <xs:element name="flagGiaPresenteDB" type="xs:boolean"/> <!-- true (era gia' nel db) / false (e' nuovo) -->
+              <xs:element name="L4_4numGF" type="xs:integer"/>
+              <xs:element name="L4_4dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_4dataDismiss" type="xs:date"/>
+              <xs:element name="L4_4fabbricante" type="xs:string"/>
+              <xs:element name="L4_4modello" type="xs:string"/>
+              <xs:element name="L4_4matricola" type="xs:string"/>
+              <xs:element name="L4_4flagSorgARIA" type="xs:boolean"/>
+              <xs:element name="L4_4flagSorgACQUA" type="xs:boolean"/>
+              <xs:element name="L4_4fluidoFrigo" type="xs:string"/>
+              <xs:element name="L4_4flagFluidoARIA" type="xs:boolean"/>
+              <xs:element name="L4_4flagFluidoACQUA" type="xs:boolean"/>
+              <xs:element name="L4_4flagRecupCalore" type="xs:boolean"/>
+              <xs:element name="L4_4flagFiammaDiretta" type="xs:boolean"/>
+              <xs:element name="L4_4tipoCombustibile" type="xs:string"/>
+              <xs:element name="L4_4flagCicloCompress" type="xs:boolean"/>
+              <xs:element name="L4_4numCircuiti" type="xs:integer"/>
+              <xs:element name="L4_4raffrescam" type="xs:decimal"/>
+              <xs:element name="L4_4potFrigoNom" type="xs:decimal"/>
+              <xs:element name="L4_4potFrigoAssorb" type="xs:decimal"/>
+              <xs:element name="L4_4riscaldam" type="xs:decimal"/>
+              <xs:element name="L4_4potTermNom" type="xs:decimal"/>
+              <xs:element name="L4_4potTermAssorb" type="xs:decimal"/>
+
+              <xs:element name="sezGFsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowGFsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowGFsost">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L4_4dataControllo" type="xs:date"/>
+              <xs:element name="flagRollBack4_4" type="xs:boolean"/> <!-- true / false -->
+              <xs:element name="L4_4dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_4dataDismiss" type="xs:date"/>
+              <xs:element name="L4_4fabbricante" type="xs:string"/>
+              <xs:element name="L4_4modello" type="xs:string"/>
+              <xs:element name="L4_4matricola" type="xs:string"/>
+              <xs:element name="L4_4flagSorgARIA" type="xs:boolean"/>
+              <xs:element name="L4_4flagSorgACQUA" type="xs:boolean"/>
+              <xs:element name="L4_4fluidoFrigo" type="xs:string"/>
+              <xs:element name="L4_4flagFluidoARIA" type="xs:boolean"/>
+              <xs:element name="L4_4flagFluidoACQUA" type="xs:boolean"/>
+              <xs:element name="L4_4flagRecupCalore" type="xs:boolean"/>
+              <xs:element name="L4_4flagFiammaDiretta" type="xs:boolean"/>
+              <xs:element name="L4_4tipoCombustibile" type="xs:string"/>
+              <xs:element name="L4_4flagCicloCompress" type="xs:boolean"/>
+              <xs:element name="L4_4numCircuiti" type="xs:integer"/>
+              <xs:element name="L4_4raffrescam" type="xs:decimal"/>
+              <xs:element name="L4_4potFrigoNom" type="xs:decimal"/>
+              <xs:element name="L4_4potFrigoAssorb" type="xs:decimal"/>
+              <xs:element name="L4_4riscaldam" type="xs:decimal"/>
+              <xs:element name="L4_4potTermNom" type="xs:decimal"/>
+              <xs:element name="L4_4potTermAssorb" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 4.5 SCAMBIATORI -->
+  <xs:element name="datiSchedaSC">
+    <xs:complexType>
+      <xs:sequence>
+          
+          <xs:element name="sezSC">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowSC" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowSC">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L4_5dataControllo" type="xs:date"/>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="flagAnnullaDismissione" type="xs:boolean"/> <!-- 1 (posso annullare la dismissione) / 0 -->
+              <xs:element name="flagGiaPresenteDB" type="xs:boolean"/> <!-- true (era gia' nel db) / false (e' nuovo) -->
+              <xs:element name="L4_5numSC" type="xs:integer"/>
+              <xs:element name="L4_5dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_5dataDismiss" type="xs:date"/>
+              <xs:element name="L4_5fabbricante" type="xs:string"/>
+              <xs:element name="L4_5modello" type="xs:string"/>
+              <xs:element name="L4_5matricola" type="xs:string"/>
+              <xs:element name="L4_5potTermNomTot" type="xs:decimal"/>
+
+              <xs:element name="sezSCsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowSCsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowSCsost">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L4_5dataControllo" type="xs:date"/>
+              <xs:element name="flagRollBack4_5" type="xs:boolean"/> <!-- true / false -->
+              <xs:element name="L4_5dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_5dataDismiss" type="xs:date"/>
+              <xs:element name="L4_5fabbricante" type="xs:string"/>
+              <xs:element name="L4_5modello" type="xs:string"/>
+              <xs:element name="L4_5matricola" type="xs:string"/>
+              <xs:element name="L4_5potTermNomTot" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 4.6 COGENERATORI -->
+  <xs:element name="datiSchedaCG">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="sezCG">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowCG" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowCG">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L4_6dataControllo" type="xs:date"/>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="flagAnnullaDismissione" type="xs:boolean"/> <!-- 1 (posso annullare la dismissione) / 0 -->
+              <xs:element name="flagGiaPresenteDB" type="xs:boolean"/> <!-- true (era gia' nel db) / false (e' nuovo) -->
+              <xs:element name="L4_6numCG" type="xs:integer"/>
+              <xs:element name="L4_6dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_6dataDismiss" type="xs:date"/>
+              <xs:element name="L4_6fabbricante" type="xs:string"/>
+              <xs:element name="L4_6modello" type="xs:string"/>
+              <xs:element name="L4_6matricola" type="xs:string"/>
+              <xs:element name="L4_6tipologia" type="xs:string"/>
+              <xs:element name="L4_6combustibile" type="xs:string"/>
+              <xs:element name="L4_6potTermNom" type="xs:decimal"/>
+              <xs:element name="L4_6potElettrNom" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaUscitaMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaUscitaMAX" type="xs:decimal"/>
+              <xs:element name="L4_6tempFumiValleMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempFumiValleMAX" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaIngressoMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaIngressoMAX" type="xs:decimal"/>
+              <xs:element name="L4_6tempFumiMonteMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempFumiMonteMAX" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaMotoreMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaMotoreMAX" type="xs:decimal"/>
+              <xs:element name="L4_6emissioniMonossidoMIN" type="xs:decimal"/>
+              <xs:element name="L4_6emissioniMonossidoMAX" type="xs:decimal"/>
+
+              <xs:element name="sezCGsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowCGsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowCGsost">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L4_6dataControllo" type="xs:date"/>
+              <xs:element name="flagRollBack4_6" type="xs:boolean"/> <!-- true / false -->
+              <xs:element name="L4_6dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_6dataDismiss" type="xs:date"/>
+              <xs:element name="L4_6fabbricante" type="xs:string"/>
+              <xs:element name="L4_6modello" type="xs:string"/>
+              <xs:element name="L4_6matricola" type="xs:string"/>
+              <xs:element name="L4_6tipologia" type="xs:string"/>
+              <xs:element name="L4_6combustibile" type="xs:string"/>
+              <xs:element name="L4_6potTermNom" type="xs:decimal"/>
+              <xs:element name="L4_6potElettrNom" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaUscitaMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaUscitaMAX" type="xs:decimal"/>
+              <xs:element name="L4_6tempFumiValleMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempFumiValleMAX" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaIngressoMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaIngressoMAX" type="xs:decimal"/>
+              <xs:element name="L4_6tempFumiMonteMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempFumiMonteMAX" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaMotoreMIN" type="xs:decimal"/>
+              <xs:element name="L4_6tempAcquaMotoreMAX" type="xs:decimal"/>
+              <xs:element name="L4_6emissioniMonossidoMIN" type="xs:decimal"/>
+              <xs:element name="L4_6emissioniMonossidoMAX" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 4.7 CAMPI SOLARI -->
+  <xs:element name="datiSchedaCS">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezCS">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowCS" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowCS">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="flagAnnullaDismissione" type="xs:boolean"/> <!-- 1 (posso annullare la dismissione) / 0 -->
+              <xs:element name="L4_7numCS" type="xs:integer"/>
+              <xs:element name="L4_7dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_7dataDismissione" type="xs:date"/>
+              <xs:element name="L4_7fabbricante" type="xs:string"/>
+              <xs:element name="L4_7collettori" type="xs:string"/>
+              <xs:element name="L4_7superfTotApertura" type="xs:decimal"/>
+
+              <xs:element name="sezCSvariate">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowCSvar" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowCSvar">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagRollBack4_7" type="xs:boolean"/> <!-- true / false -->
+              <xs:element name="L4_7dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_7dataDismissione" type="xs:date"/>
+              <xs:element name="L4_7fabbricante" type="xs:string"/>
+              <xs:element name="L4_7collettori" type="xs:string"/>
+              <xs:element name="L4_7superfTotApertura" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 4.8 ALTRI GENERATORI -->
+  <xs:element name="datiSchedaAG">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezAG">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowAG" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowAG">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="flagAnnullaDismissione" type="xs:boolean"/> <!-- 1 (posso annullare la dismissione) / 0 -->
+              <xs:element name="L4_8numAG" type="xs:integer"/>
+              <xs:element name="L4_8dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_8dataDismiss" type="xs:date"/>
+              <xs:element name="L4_8fabbricante" type="xs:string"/>
+              <xs:element name="L4_8modello" type="xs:string"/>
+              <xs:element name="L4_8matricola" type="xs:string"/>
+              <xs:element name="L4_8tipologia" type="xs:string"/>
+              <xs:element name="L4_8potUtile" type="xs:decimal"/>
+
+              <xs:element name="sezAGsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowAGsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowAGsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagRollBack4_8" type="xs:boolean"/> <!-- true / false -->
+              <xs:element name="L4_8dataInstallaz" type="xs:date"/>
+              <xs:element name="L4_8dataDismiss" type="xs:date"/>
+              <xs:element name="L4_8fabbricante" type="xs:string"/>
+              <xs:element name="L4_8modello" type="xs:string"/>
+              <xs:element name="L4_8matricola" type="xs:string"/>
+              <xs:element name="L4_8tipologia" type="xs:string"/>
+              <xs:element name="L4_8potUtile" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 5 SISTEMI DI REGOLAZIONE E CONTABILIZZAZIONE -->
+  <xs:element name="datiSchedaSistemiRegolaz">
+      <xs:complexType>
+      <xs:sequence>
+
+        <xs:element ref="regolazionePrimaria"/>
+        <xs:element ref="regolazioneSingoloAmb"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- 5.1 REGOLAZIONE PRIMARIA -->
+  <xs:element name="regolazionePrimaria">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="L5_1flagRegolazOnOff" type="xs:boolean"/>
+          <xs:element name="L5_1flagRegolazCurvaIntegr" type="xs:boolean"/>
+          <xs:element name="L5_1flagRegolazCurvaIndipen" type="xs:boolean"/>
+
+          <xs:element name="sezSR">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowSR" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+         <xs:element name="L5_1flagValvoleReg" type="xs:boolean"/>
+
+          <xs:element name="sezVR">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowVR" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+	     
+	     <xs:element name="L5_1flagRegMultiGrad" type="xs:boolean"/>
+	     <xs:element name="L5_1flagRegInverter" type="xs:boolean"/>
+	     <xs:element name="L5_1flagAltriSistRegPrim" type="xs:boolean"/>
+	     <xs:element name="L5_1descrSistema" type="xs:string"/>
+	     
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowSR">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L5_1numSR" type="xs:integer"/>
+              <xs:element name="L5_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L5_1dataDismiss" type="xs:date"/>
+              <xs:element name="L5_1fabbricante" type="xs:string"/>
+              <xs:element name="L5_1modello" type="xs:string"/>
+              <xs:element name="L5_1numPuntiReg" type="xs:integer"/>
+              <xs:element name="L5_1numLivTemp" type="xs:integer"/>
+
+
+              <xs:element name="sezSRsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowSRsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowSRsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L5_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L5_1dataDismiss" type="xs:date"/>
+              <xs:element name="L5_1fabbricante" type="xs:string"/>
+              <xs:element name="L5_1modello" type="xs:string"/>
+              <xs:element name="L5_1numPuntiReg" type="xs:integer"/>
+              <xs:element name="L5_1numLivTemp" type="xs:integer"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+   <xs:element name="rowVR">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L5_1numVR" type="xs:integer"/>
+              <xs:element name="L5_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L5_1dataDismiss" type="xs:date"/>
+              <xs:element name="L5_1fabbricante" type="xs:string"/>
+              <xs:element name="L5_1modello" type="xs:string"/>
+              <xs:element name="L5_1numVie" type="xs:integer"/>
+              <xs:element name="L5_1servomotore" type="xs:string"/>
+
+
+              <xs:element name="sezVRsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowVRsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowVRsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L5_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L5_1dataDismiss" type="xs:date"/>
+              <xs:element name="L5_1fabbricante" type="xs:string"/>
+              <xs:element name="L5_1modello" type="xs:string"/>
+              <xs:element name="L5_1numVie" type="xs:integer"/>
+              <xs:element name="L5_1servomotore" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 5.2 REGOLAZIONE SINGOLO AMBIENTE -->
+  <xs:element name="regolazioneSingoloAmb">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="L5_2flagTermostatoOnOff" type="xs:boolean"/>
+          <xs:element name="L5_2flagTermostatoProporz" type="xs:boolean"/>
+          <xs:element name="L5_2flagControlEntalpico" type="xs:boolean"/>
+          <xs:element name="L5_2flagControlPortata" type="xs:boolean"/>
+
+          <xs:element name="L5_2flagValvTermostSI" type="xs:boolean"/>
+          <xs:element name="L5_2flagValvTermostNO" type="xs:boolean"/>
+          <xs:element name="L5_2flagValvDueVieSI" type="xs:boolean"/>
+          <xs:element name="L5_2flagValvDueVieNO" type="xs:boolean"/>
+          <xs:element name="L5_2flagValvTreVieSI" type="xs:boolean"/>
+          <xs:element name="L5_2flagValvTreVieNO" type="xs:boolean"/>
+          <xs:element name="L5_2note" type="xs:string"/>
+          
+          <xs:element name="L5_3flagTeleLetturaSI" type="xs:boolean"/>
+          <xs:element name="L5_3flagTeleLetturaNO" type="xs:boolean"/>
+          <xs:element name="L5_3flagTeleGestioneSI" type="xs:boolean"/>
+          <xs:element name="L5_3flagTeleGestioneNO" type="xs:boolean"/>
+          <xs:element name="L5_3descrSistema" type="xs:string"/>
+          <xs:element name="L5_3dataSostituzione" type="xs:date"/>
+          <xs:element name="L5_3descrSistemaSost" type="xs:string"/>
+
+          <xs:element name="L5_4flagUIcontabilizzSI" type="xs:boolean"/>
+          <xs:element name="L5_4flagUIcontabilizzNO" type="xs:boolean"/>
+          <xs:element name="L5_4flagSistemaDiretto" type="xs:boolean"/>
+          <xs:element name="L5_4flagSistemaIndiretto" type="xs:boolean"/>
+          <xs:element name="L5_4flagRiscald" type="xs:boolean"/>
+          <xs:element name="L5_4flagRaffresc" type="xs:boolean"/>
+          <xs:element name="L5_4flagACS" type="xs:boolean"/>
+          <xs:element name="L5_4descrSistema" type="xs:string"/>
+          <xs:element name="L5_4dataSostituzione" type="xs:date"/>
+          <xs:element name="L5_4descrSistemaSost" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- 6 SISTEMI DI DISTRIBUZIONE -->
+  <xs:element name="datiSchedaSistemiDistrib">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="L6_1flagVerticale" type="xs:boolean"/>
+          <xs:element name="L6_1flagOrizzontale" type="xs:boolean"/>
+          <xs:element name="L6_1flagCanaliAria" type="xs:boolean"/>
+          <xs:element name="L6_1flagAltro" type="xs:boolean"/>
+          <xs:element name="L6_1DescrAltro" type="xs:string"/>
+
+          <xs:element name="L6_2flagCoibentNO" type="xs:boolean"/>
+          <xs:element name="L6_2flagCoibentSI" type="xs:boolean"/>
+          <xs:element name="L6_2note" type="xs:string"/>
+
+          <xs:element name="sezVasi">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowVasi" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+	     
+	     <xs:element name="L6_3note" type="xs:string"/>
+	     
+          <xs:element name="sezPO">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowPO" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  	<xs:element name="rowVasi">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L6_3codice" type="xs:decimal"/>
+              <xs:element name="L6_3capacita" type="xs:decimal"/>
+              <xs:element name="L6_3vasoAperto" type="xs:boolean"/>
+              <xs:element name="L6_3vasoChiuso" type="xs:boolean"/>
+              <xs:element name="L6_3pressione" type="xs:decimal"/>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+   <xs:element name="rowPO">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L6_4numPO" type="xs:integer"/>
+              <xs:element name="L6_4dataInstallaz" type="xs:date"/>
+              <xs:element name="L6_4dataDismiss" type="xs:date"/>
+              <xs:element name="L6_4fabbricante" type="xs:string"/>
+              <xs:element name="L6_4modello" type="xs:string"/>
+              <xs:element name="L6_4GiriVarSI" type="xs:boolean"/>
+              <xs:element name="L6_4GiriVarNO" type="xs:boolean"/>
+              <xs:element name="L6_4potNominale" type="xs:decimal"/>
+
+
+              <xs:element name="sezPOsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowPOsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowPOsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L6_4dataInstallaz" type="xs:date"/>
+              <xs:element name="L6_4dataDismiss" type="xs:date"/>
+              <xs:element name="L6_4fabbricante" type="xs:string"/>
+              <xs:element name="L6_4modello" type="xs:string"/>
+              <xs:element name="L6_4GiriVarSI" type="xs:boolean"/>
+              <xs:element name="L6_4GiriVarNO" type="xs:boolean"/>
+              <xs:element name="L6_4potNominale" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+  <!-- 7 SISTEMA EMISSIONE -->
+  <xs:element name="datiSchedaSistemaEmissione">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="L7flagRadiatori" type="xs:boolean"/>
+          <xs:element name="L7flagTermoConvett" type="xs:boolean"/>
+          <xs:element name="L7flagVentilConvett" type="xs:boolean"/>
+          <xs:element name="L7flagPannelRadianti" type="xs:boolean"/>
+          <xs:element name="L7flagBocchette" type="xs:boolean"/>
+          <xs:element name="L7flagStrisce" type="xs:boolean"/>
+          <xs:element name="L7flagTravi" type="xs:boolean"/>
+          <xs:element name="L7flagAltro" type="xs:boolean"/>
+          <xs:element name="L7descrAltro" type="xs:string"/>
+
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- 8.1 ACCUMULI -->
+  <xs:element name="datiSchedaSistemaAC">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezAC">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowAC" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowAC">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L8_1numAC" type="xs:integer"/>
+              <xs:element name="L8_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L8_1dataDismiss" type="xs:date"/>
+              <xs:element name="L8_1fabbricante" type="xs:string"/>
+              <xs:element name="L8_1modello" type="xs:string"/>
+              <xs:element name="L8_1matricola" type="xs:string"/>
+              <xs:element name="L8_1capacita" type="xs:decimal"/>
+              <xs:element name="L8_1flagACS" type="xs:boolean"/>
+              <xs:element name="L8_1flagRiscald" type="xs:boolean"/>
+              <xs:element name="L8_1flagRaffresc" type="xs:boolean"/>
+              <xs:element name="L8_1flagCoibentNO" type="xs:boolean"/>
+              <xs:element name="L8_1flagCoibentSI" type="xs:boolean"/>
+
+              <xs:element name="sezACsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowACsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowACsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L8_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L8_1dataDismiss" type="xs:date"/>
+              <xs:element name="L8_1fabbricante" type="xs:string"/>
+              <xs:element name="L8_1modello" type="xs:string"/>
+              <xs:element name="L8_1matricola" type="xs:string"/>
+              <xs:element name="L8_1capacita" type="xs:decimal"/>
+              <xs:element name="L8_1flagACS" type="xs:boolean"/>
+              <xs:element name="L8_1flagRiscald" type="xs:boolean"/>
+              <xs:element name="L8_1flagRaffresc" type="xs:boolean"/>
+              <xs:element name="L8_1flagCoibentNO" type="xs:boolean"/>
+              <xs:element name="L8_1flagCoibentSI" type="xs:boolean"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  <!-- 9.1 TORRI EVAPORATIVE -->
+  <xs:element name="datiAltriComponentiTE">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezTE">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowTE" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowTE">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L9_1numTE" type="xs:integer"/>
+              <xs:element name="L9_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_1dataDismiss" type="xs:date"/>
+              <xs:element name="L9_1fabbricante" type="xs:string"/>
+              <xs:element name="L9_1modello" type="xs:string"/>
+              <xs:element name="L9_1matricola" type="xs:string"/>
+              <xs:element name="L9_1capacita" type="xs:decimal"/>
+              <xs:element name="L9_1numVentilatori" type="xs:decimal"/>
+              <xs:element name="L9_1tipoVentilatori" type="xs:string"/>
+              
+              <xs:element name="sezTEsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowTEsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowTEsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L9_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_1dataDismiss" type="xs:date"/>
+              <xs:element name="L9_1fabbricante" type="xs:string"/>
+              <xs:element name="L9_1modello" type="xs:string"/>
+              <xs:element name="L9_1matricola" type="xs:string"/>
+              <xs:element name="L9_1capacita" type="xs:decimal"/>
+              <xs:element name="L9_1numVentilatori" type="xs:decimal"/>
+              <xs:element name="L9_1tipoVentilatori" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 9.2 RAFFREDDATORI DI LIQUIDO -->
+  <xs:element name="datiAltriComponentiRV">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezRV">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowRV" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowRV">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L9_2numRV" type="xs:integer"/>
+              <xs:element name="L9_2dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_2dataDismiss" type="xs:date"/>
+              <xs:element name="L9_2fabbricante" type="xs:string"/>
+              <xs:element name="L9_2modello" type="xs:string"/>
+              <xs:element name="L9_2matricola" type="xs:string"/>
+              <xs:element name="L9_2numVentilatori" type="xs:decimal"/>
+              <xs:element name="L9_2tipoVentilatori" type="xs:string"/>
+
+              <xs:element name="sezRVsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowRVsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowRVsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L9_2dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_2dataDismiss" type="xs:date"/>
+              <xs:element name="L9_2fabbricante" type="xs:string"/>
+              <xs:element name="L9_2modello" type="xs:string"/>
+              <xs:element name="L9_2matricola" type="xs:string"/>
+              <xs:element name="L9_2numVentilatori" type="xs:decimal"/>
+              <xs:element name="L9_2tipoVentilatori" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 9.3 SCAMBIATORE CALORE INTERMEDI -->
+  <xs:element name="datiAltriComponentiSC">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezSC">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowSCcal" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowSCcal">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L9_3numSC" type="xs:integer"/>
+              <xs:element name="L9_3dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_3dataDismiss" type="xs:date"/>
+              <xs:element name="L9_3fabbricante" type="xs:string"/>
+              <xs:element name="L9_3modello" type="xs:string"/>
+
+
+              <xs:element name="sezSCsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowSCcalsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowSCcalsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L9_3dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_3dataDismiss" type="xs:date"/>
+              <xs:element name="L9_3fabbricante" type="xs:string"/>
+              <xs:element name="L9_3modello" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  <!-- 9.4 CIRCUITI INTERRATI -->
+  <xs:element name="datiAltriComponentiCI">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezCI">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowCI" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowCI">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L9_4numCI" type="xs:integer"/>
+              <xs:element name="L9_4dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_4dataDismiss" type="xs:date"/>
+              <xs:element name="L9_4lungCircuito" type="xs:decimal"/>
+              <xs:element name="L9_4superfScamb" type="xs:decimal"/>
+              <xs:element name="L9_4profInstallaz" type="xs:decimal"/>
+
+              <xs:element name="sezCIsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowCIsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowCIsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L9_4dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_4dataDismiss" type="xs:date"/>
+              <xs:element name="L9_4lungCircuito" type="xs:decimal"/>
+              <xs:element name="L9_4superfScamb" type="xs:decimal"/>
+              <xs:element name="L9_4profInstallaz" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  <!-- 9.5 UNITA' DI TRATTAMENTO ARIA -->
+  <xs:element name="datiAltriComponentiUT">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezUT">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowUT" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowUT">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L9_5numUT" type="xs:integer"/>
+              <xs:element name="L9_5dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_5dataDismiss" type="xs:date"/>
+              <xs:element name="L9_5fabbricante" type="xs:string"/>
+              <xs:element name="L9_5modello" type="xs:string"/>
+              <xs:element name="L9_5matricola" type="xs:string"/>
+              <xs:element name="L9_5portataVentMandata" type="xs:decimal"/>
+              <xs:element name="L9_5portataVentRipresa" type="xs:decimal"/>
+              <xs:element name="L9_5potenzaVentMandata" type="xs:decimal"/>
+              <xs:element name="L9_5potenzaVentRipresa" type="xs:decimal"/>
+
+              <xs:element name="sezUTsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowUTsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowUTsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L9_5dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_5dataDismiss" type="xs:date"/>
+              <xs:element name="L9_5fabbricante" type="xs:string"/>
+              <xs:element name="L9_5modello" type="xs:string"/>
+              <xs:element name="L9_5matricola" type="xs:string"/>
+              <xs:element name="L9_5portataVentMandata" type="xs:decimal"/>
+              <xs:element name="L9_5portataVentRipresa" type="xs:decimal"/>
+              <xs:element name="L9_5potenzaVentMandata" type="xs:decimal"/>
+              <xs:element name="L9_5potenzaVentRipresa" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  <!-- 9.6 RECUPERATORI DI CALORE -->
+  <xs:element name="datiAltriComponentiRC">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezRC">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowRCcal" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowRCcal">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L9_6numRC" type="xs:integer"/>
+              <xs:element name="L9_6dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_6dataDismiss" type="xs:date"/>
+              <xs:element name="L9_6tipologia" type="xs:string"/>
+              <xs:element name="L9_6flagInstallato" type="xs:boolean"/>
+              <xs:element name="L9_6flagIndipendente" type="xs:boolean"/>
+              <xs:element name="L9_6portataVentMandata" type="xs:decimal"/>
+              <xs:element name="L9_6portataVentRipresa" type="xs:decimal"/>
+              <xs:element name="L9_6potenzaVentMandata" type="xs:decimal"/>
+              <xs:element name="L9_6potenzaVentRipresa" type="xs:decimal"/>
+
+              <xs:element name="sezRCsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowRCcalsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowRCcalsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L9_6dataInstallaz" type="xs:date"/>
+              <xs:element name="L9_6dataDismiss" type="xs:date"/>
+              <xs:element name="L9_6tipologia" type="xs:string"/>
+              <xs:element name="L9_6flagInstallato" type="xs:boolean"/>
+              <xs:element name="L9_6flagIndipendente" type="xs:boolean"/>
+              <xs:element name="L9_6portataVentMandata" type="xs:decimal"/>
+              <xs:element name="L9_6portataVentRipresa" type="xs:decimal"/>
+              <xs:element name="L9_6potenzaVentMandata" type="xs:decimal"/>
+              <xs:element name="L9_6potenzaVentRipresa" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 10.1 IMPIANTO VENTILAZ MECCANICA CONTROLLATA -->
+  <xs:element name="datiVentilazMeccanicaVM">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezVM">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowVM" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+   <xs:element name="rowVM">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="flagDismissione" type="xs:boolean"/> <!-- 1 (il componente e' dismesso) / 0 -->
+              <xs:element name="L10_1numVM" type="xs:integer"/>
+              <xs:element name="L10_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L10_1dataDismiss" type="xs:date"/>
+              <xs:element name="L10_1fabbricante" type="xs:string"/>
+              <xs:element name="L10_1modello" type="xs:string"/>
+              <xs:element name="L10_1flagSolaEstraz" type="xs:boolean"/>
+              <xs:element name="L10_1flagFlussoIncrociato" type="xs:boolean"/>
+              <xs:element name="L10_1flagFlussoTermoDinamico" type="xs:boolean"/>
+              <xs:element name="L10_1flagAltro" type="xs:boolean"/>
+              <xs:element name="L10_1descrAltro" type="xs:string"/>
+              <xs:element name="L10_1maxPortataAria" type="xs:decimal"/>
+              <xs:element name="L10_1rendimentoRecupero" type="xs:decimal"/>
+
+              <xs:element name="sezVMsostituite">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowVMsost" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowVMsost">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L10_1dataInstallaz" type="xs:date"/>
+              <xs:element name="L10_1dataDismiss" type="xs:date"/>
+              <xs:element name="L10_1fabbricante" type="xs:string"/>
+              <xs:element name="L10_1modello" type="xs:string"/>
+              <xs:element name="L10_1flagSolaEstraz" type="xs:boolean"/>
+              <xs:element name="L10_1flagFlussoIncrociato" type="xs:boolean"/>
+              <xs:element name="L10_1flagFlussoTermoDinamico" type="xs:boolean"/>
+              <xs:element name="L10_1flagAltro" type="xs:boolean"/>
+              <xs:element name="L10_1descrAltro" type="xs:string"/>
+              <xs:element name="L10_1maxPortataAria" type="xs:decimal"/>
+              <xs:element name="L10_1rendimentoRecupero" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+
+  <!-- 11.1 RISULTATI VERIFICA ....: GRUPPI TERMICI -->
+  <xs:element name="datiRisultatiGT">
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="L11_1flagNorma" type="xs:boolean"/>
+          <xs:element name="L11_1flagAltro" type="xs:boolean"/>
+          <xs:element name="L11_1descrAltro" type="xs:string"/>
+          
+          <xs:element name="sezGruppiTermici">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="L11_1rowGT" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+   <xs:element name="L11_1rowGT">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_1numGT" type="xs:integer"/>
+
+              <xs:element name="sezDateGT">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowDateGT" minOccurs="1" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+   <xs:element name="rowDateGT">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_1data" type="xs:date"/>
+
+              <xs:element name="sezNumeroModuliGT">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowNumModuliGT" minOccurs="1" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowNumModuliGT">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_1numModulo" type="xs:string"/>
+              <xs:element name="L11_1portataTermEff" type="xs:decimal"/>
+              <xs:element name="L11_1tempFumi" type="xs:decimal"/>
+              <xs:element name="L11_1tempAriaComb" type="xs:decimal"/>
+              <xs:element name="L11_1O2" type="xs:decimal"/>
+              <xs:element name="L11_1CO2" type="xs:decimal"/>
+              <xs:element name="L11_1indBacharach1" type="xs:string"/>
+              <xs:element name="L11_1indBacharach2" type="xs:string"/>
+              <xs:element name="L11_1indBacharach3" type="xs:string"/>
+              <xs:element name="L11_1CO" type="xs:decimal"/>
+              <xs:element name="L11_1portataCombu" type="xs:string"/>
+              <xs:element name="L11_1nox" type="xs:decimal"/>
+              <xs:element name="L11_1COsenzaAria" type="xs:decimal"/>
+              <xs:element name="L11_1rendimentoCombu" type="xs:decimal"/>
+              <xs:element name="L11_1flagIndBachSI" type="xs:boolean"/>
+              <xs:element name="L11_1flagIndBachNO" type="xs:boolean"/>
+              <xs:element name="L11_1flagfumiSecchiSI" type="xs:boolean"/>
+              <xs:element name="L11_1flagfumiSecchiNO" type="xs:boolean"/>
+              <xs:element name="L11_1percMinimoLegge" type="xs:decimal"/>
+              <xs:element name="L11_1flagMinimoSI" type="xs:boolean"/>
+              <xs:element name="L11_1flagMinimoNO" type="xs:boolean"/>
+              <xs:element name="L11_1firma" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  <!-- 11.2 RISULTATI VERIFICA ....: MACCHINE FRIGO -->
+  <xs:element name="datiRisultatiGF">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezMacchineFrigo">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="L11_2rowGF" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+   <xs:element name="L11_2rowGF">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_2numGF" type="xs:integer"/>
+
+              <xs:element name="sezDateGF">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowDateGF" minOccurs="1" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+   <xs:element name="rowDateGF">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_2data" type="xs:date"/>
+
+              <xs:element name="sezCircuitiGF">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowCircuitiGF" minOccurs="1" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  	<xs:element name="rowCircuitiGF">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_2numCircuito" type="xs:string"/>
+              <xs:element name="L11_2flagAssenzaPerditeSI" type="xs:boolean"/>
+              <xs:element name="L11_2flagAssenzaPerditeNO" type="xs:boolean"/>
+              <xs:element name="L11_2flagRaffr" type="xs:boolean"/>
+              <xs:element name="L11_2flagRisc" type="xs:boolean"/>
+              <xs:element name="L11_2surrisc" type="xs:decimal"/>
+              <xs:element name="L11_2sottoraffr" type="xs:decimal"/>
+              <xs:element name="L11_2condens" type="xs:decimal"/>
+              <xs:element name="L11_2evaporaz" type="xs:decimal"/>
+              <xs:element name="L11_2sorgenteIngresso" type="xs:decimal"/>
+              <xs:element name="L11_2sorgenteUscita" type="xs:decimal"/>
+              <xs:element name="L11_2ingressoUtenze" type="xs:decimal"/>
+              <xs:element name="L11_2usciteUtenze" type="xs:decimal"/>
+              <xs:element name="L11_2uscitaFluido" type="xs:decimal"/>
+              <xs:element name="L11_2bulboUmido" type="xs:decimal"/>
+              <xs:element name="L11_2ingressoFluido" type="xs:decimal"/>
+              <xs:element name="L11_2uscitaFluidoSorg" type="xs:decimal"/>
+              <xs:element name="L11_2ingressoFluidoMacc" type="xs:decimal"/>
+              <xs:element name="L11_2uscitaFluidoMacc" type="xs:decimal"/>
+              <xs:element name="L11_2potAssorbita" type="xs:decimal"/>
+              <xs:element name="L11_2flagFiltriSI" type="xs:boolean"/>
+              <xs:element name="L11_2flagFiltriNO" type="xs:boolean"/>
+              <xs:element name="L11_2flagVerificaSI" type="xs:boolean"/>
+              <xs:element name="L11_2flagVerificaNO" type="xs:boolean"/>
+              <xs:element name="L11_2dataRispristino" type="xs:date"/>
+              <xs:element name="L11_2firma" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  <!-- 11.3 RISULTATI VERIFICA ....: SCAMBIATORI -->
+  <xs:element name="datiRisultatiSC">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezScambiatori">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="L11_3rowSC" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+   <xs:element name="L11_3rowSC">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_3numSC" type="xs:integer"/>
+
+              <xs:element name="sezSC">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowDateSC" minOccurs="1" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  	<xs:element name="rowDateSC">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_3data" type="xs:date"/>
+              <xs:element name="L11_3tempEsterna" type="xs:decimal"/>
+              <xs:element name="L11_3tempMandPrimario" type="xs:decimal"/>
+              <xs:element name="L11_3tempRitPrimario" type="xs:decimal"/>
+              <xs:element name="L11_3tempMandSecond" type="xs:decimal"/>
+              <xs:element name="L11_3tempRitSecond" type="xs:decimal"/>
+              <xs:element name="L11_3portataFluidoPrim" type="xs:decimal"/>
+              <xs:element name="L11_3potTermica" type="xs:decimal"/>
+              <xs:element name="L11_3flagPotCompatibSI" type="xs:boolean"/>
+              <xs:element name="L11_3flagPotCompatibNO" type="xs:boolean"/>
+              <xs:element name="L11_3flagPotCompatibNC" type="xs:boolean"/>
+              <xs:element name="L11_3flagStatoCoibSI" type="xs:boolean"/>
+              <xs:element name="L11_3flagStatoCoibNO" type="xs:boolean"/>
+              <xs:element name="L11_3flagStatoCoibNC" type="xs:boolean"/>
+              <xs:element name="L11_3flagDispRegSI" type="xs:boolean"/>
+              <xs:element name="L11_3flagDispRegNO" type="xs:boolean"/>
+              <xs:element name="L11_3flagDispRegNC" type="xs:boolean"/>
+              <xs:element name="L11_3firma" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  <!-- 11.4 RISULTATI VERIFICA ....: COGENERATORI -->
+  <xs:element name="datiRisultatiCG">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezCogen">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="L11_4rowCG" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+   <xs:element name="L11_4rowCG">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_4numCG" type="xs:integer"/>
+
+              <xs:element name="sezCG">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowDateCG" minOccurs="1" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+  	<xs:element name="rowDateCG">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L11_4data" type="xs:date"/>
+              <xs:element name="L11_4tempAriaComb" type="xs:decimal"/>
+              <xs:element name="L11_4tempH2Ouscita" type="xs:decimal"/>
+              <xs:element name="L11_4tempH2Oingresso" type="xs:decimal"/>
+              <xs:element name="L11_4tempH2Omotore" type="xs:decimal"/>
+              <xs:element name="L11_4tempFumiValle" type="xs:decimal"/>
+              <xs:element name="L11_4tempFumiMonte" type="xs:decimal"/>
+              <xs:element name="L11_4potElettricaMorsetti" type="xs:decimal"/>
+              <xs:element name="L11_4emissioniCO" type="xs:string"/>
+              <xs:element name="L11_4sovraFreqSoglia1" type="xs:decimal"/>
+              <xs:element name="L11_4sovraFreqSoglia2" type="xs:decimal"/>
+              <xs:element name="L11_4sovraFreqSoglia3" type="xs:decimal"/>
+              <xs:element name="L11_4sovraFreqTempo1" type="xs:decimal"/>
+              <xs:element name="L11_4sovraFreqTempo2" type="xs:decimal"/>
+              <xs:element name="L11_4sovraFreqTempo3" type="xs:decimal"/>
+              <xs:element name="L11_4sottoFreqSoglia1" type="xs:decimal"/>
+              <xs:element name="L11_4sottoFreqSoglia2" type="xs:decimal"/>
+              <xs:element name="L11_4sottoFreqSoglia3" type="xs:decimal"/>
+              <xs:element name="L11_4sottoFreqTempo1" type="xs:decimal"/>
+              <xs:element name="L11_4sottoFreqTempo2" type="xs:decimal"/>
+              <xs:element name="L11_4sottoFreqTempo3" type="xs:decimal"/>
+              <xs:element name="L11_4sovraTensSoglia1" type="xs:decimal"/>
+              <xs:element name="L11_4sovraTensSoglia2" type="xs:decimal"/>
+              <xs:element name="L11_4sovraTensSoglia3" type="xs:decimal"/>
+              <xs:element name="L11_4sovraTensTempo1" type="xs:decimal"/>
+              <xs:element name="L11_4sovraTensTempo2" type="xs:decimal"/>
+              <xs:element name="L11_4sovraTensTempo3" type="xs:decimal"/>
+              <xs:element name="L11_4sottoTensSoglia1" type="xs:decimal"/>
+              <xs:element name="L11_4sottoTensSoglia2" type="xs:decimal"/>
+              <xs:element name="L11_4sottoTensSoglia3" type="xs:decimal"/>
+              <xs:element name="L11_4sottoTensTempo1" type="xs:decimal"/>
+              <xs:element name="L11_4sottoTensTempo2" type="xs:decimal"/>
+              <xs:element name="L11_4sottoTensTempo3" type="xs:decimal"/>
+              <xs:element name="L11_4firma" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+	
+  <!-- 12 INTERVENTI CONTROLLO EFFICIENZA ENERGETICA -->
+  <xs:element name="datiInterventiControllo">
+    <xs:complexType> 
+      <xs:sequence>
+
+          <xs:element name="sezInterventi">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="intervControllo" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="intervControllo">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L12dataControllo" type="xs:date"/>
+              <xs:element name="L12ragioneSociale" type="xs:string"/>
+              <xs:element name="L12cciaa" type="xs:string"/>
+              <xs:element name="L12tipoAllegato" type="xs:string"/>
+              <xs:element name="L12flagRaccSI" type="xs:boolean"/>
+              <xs:element name="L12flagRaccNO" type="xs:boolean"/>
+              <xs:element name="L12flagPrescrSI" type="xs:boolean"/>
+              <xs:element name="L12flagPrescrNO" type="xs:boolean"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+  <!-- 13 RISULTATI DELLE ISPEZIONI PERIODICHE ...... -->
+  <xs:element name="datiRisultatiIspez">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezRisultati">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowRisultatiIspez" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  
+   <xs:element name="rowRisultatiIspez">
+		<xs:complexType>
+			<xs:sequence>
+			  <xs:element name="L13dataIspez" type="xs:date"/>
+              <xs:element name="L13cognomeTecnico" type="xs:string"/>
+              <xs:element name="L13nomeTecnico" type="xs:string"/>
+              <xs:element name="L13codiceFiscale" type="xs:string"/>
+              <xs:element name="L13enteCompetente" type="xs:string"/>
+              <xs:element name="L13flagPositivo" type="xs:boolean"/>
+              <xs:element name="L13flagNegativo" type="xs:boolean"/>
+              <xs:element name="L13note" type="xs:string"/>
+              <xs:element name="L13rapportoProva" type="xs:string"/>
+              <xs:element name="L13firmaIspettore" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	
+  <!-- 14 REGISTRAZIONE DEI CONSUMI NEI VARI ESERCIZI -->
+  <!-- 14.1 CONSUMO COMBUSTIBILE -->
+  <xs:element name="datiConsumoCombu">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezCombu">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowCombu" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="rowCombu">
+		<xs:complexType>
+			<xs:sequence>
+             <xs:element name="L14_1tipoCombu" type="xs:string"/>
+              <xs:element name="L14_1unitaMisura" type="xs:string"/>
+              <xs:element name="sezRowConsumo">
+            		<xs:complexType>
+            			<xs:sequence>
+                               <xs:element ref="rowConsumo" minOccurs="0" maxOccurs="unbounded"/>
+            			</xs:sequence>
+            		</xs:complexType>
+    	     </xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+  <xs:element name="rowConsumo">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L14_1esercizio1" type="xs:integer"/>
+              <xs:element name="L14_1esercizio2" type="xs:integer"/>
+              <xs:element name="L14_1acquisti" type="xs:string"/>
+              <xs:element name="L14_1letturaIniz" type="xs:decimal"/>
+              <xs:element name="L14_1letturaFinale" type="xs:decimal"/>
+              <xs:element name="L14_1consumo" type="xs:decimal"/>
+
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+  <!-- 14.2 CONSUMO ENERGIA ELETTRICA -->
+  <xs:element name="datiConsumoEE">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezConsumo">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowConsumoEE" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="rowConsumoEE">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L14_2esercizio1" type="xs:integer"/>
+              <xs:element name="L14_2esercizio2" type="xs:integer"/>
+              <xs:element name="L14_2letturaIniz" type="xs:decimal"/>
+              <xs:element name="L14_2letturaFinale" type="xs:decimal"/>
+              <xs:element name="L14_2consumoTot" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+  <!-- 14.3 CONSUMO H2O -->
+  <xs:element name="datiConsumoH2O">
+    <xs:complexType>
+      <xs:sequence>
+      
+          <xs:element name="L14_3unitaMisura" type="xs:string"/>
+          
+          <xs:element name="sezConsumo">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowConsumoH2O" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="rowConsumoH2O">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L14_3esercizio1" type="xs:integer"/>
+              <xs:element name="L14_3esercizio2" type="xs:integer"/>
+              <xs:element name="L14_3letturaIniz" type="xs:decimal"/>
+              <xs:element name="L14_3letturaFinale" type="xs:decimal"/>
+              <xs:element name="L14_3consumoTot" type="xs:decimal"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+  <!-- 14.4 CONSUMO PRODOTTI CHIMICI ....... -->
+  <xs:element name="datiConsumoProdottiChimici">
+    <xs:complexType>
+      <xs:sequence>
+
+          <xs:element name="sezConsumo">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element ref="rowConsumoPROD" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="rowConsumoPROD">
+		<xs:complexType>
+			<xs:sequence>
+              <xs:element name="L14_4esercizio1" type="xs:integer"/>
+              <xs:element name="L14_4esercizio2" type="xs:integer"/>
+              <xs:element name="L14_4flagCircuitoIT" type="xs:boolean"/>
+              <xs:element name="L14_4flagCircuitoACS" type="xs:boolean"/>
+              <xs:element name="L14_4flagCircuitoAltri" type="xs:boolean"/>
+              <xs:element name="L14_4nomeProdotto" type="xs:string"/>
+              <xs:element name="L14_4qtaConsumata" type="xs:decimal"/>
+              <xs:element name="L14_4unitaMisura" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+   </xs:element>
+
+
+
+</xs:schema>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

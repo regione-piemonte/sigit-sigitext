@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server>  
+  <mbean code="it.csi.sigit.sigitext.business.sigitext.spring.startup.LoadStartupService" name="it.csi.sigit.sigitext.business.sigitext.spring.startup:service=LoadStartup">
+    <attribute name="Message">Startup contesto spring</attribute>
+  </mbean>
+</server>

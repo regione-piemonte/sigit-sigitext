@@ -1,0 +1,9 @@
+<ivy-module version="1.0">
+    <info
+        organisation="csipiemonte"
+        module="sigitext-sigitext-client"
+        revision="2.1.0" />
+    <publications>
+        <artifact name="sigitext-sigitext-client-2.1.0" type="jar" />   
+    </publications>
+</ivy-module>

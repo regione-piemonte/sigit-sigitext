@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/manutenzionecg/data"
+	       xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.csi.it/sigit/sigitwebn/xml/importmassivo/manutenzionecg/data"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+
+<xs:element name="MANUTENZIONE">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element ref="Richiesta"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:element>
+
+  <xs:element name="Richiesta">
+      <xs:complexType>
+      <xs:sequence>
+	    <xs:element ref="datiImpresa"/> 
+        <xs:element ref="datiIntestazione"/>
+        <xs:element ref="datiManutenzione"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI DEL MANUTENTORE RESPONSBAILE DEL RAPPORTO DI CONTROLLO -->
+  <xs:element name="datiImpresa"> 
+    <xs:complexType>
+      <xs:sequence>
+          <xs:element name="siglaREA" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="numeroREA" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="codiceFiscale" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <!-- DATI INTESTAZIONE MODULO -->
+  <xs:element name="datiIntestazione">
+    <xs:complexType>
+      <xs:sequence>
+          <!-- intestazione modulo -->
+		  <xs:element name="codiceCatasto" type="xs:string" minOccurs="1" maxOccurs="1"/> 
+		  <xs:element name="A_F_dataControllo" type="xs:date" minOccurs="1" maxOccurs="1"/>
+		  <xs:element name="tipoIntervento" minOccurs="1" maxOccurs="1">
+					<xs:simpleType>
+						<xs:annotation>
+							<xs:documentation>
+								Valori ammessi:
+								1-Pulizia
+								2-Controllo 
+								3-Altro
+							</xs:documentation>
+						</xs:annotation>
+						<xs:restriction base="xs:integer">
+							<xs:enumeration value="1"/>
+							<xs:enumeration value="2"/>
+							<xs:enumeration value="3"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- DATI DEL MODULO CHE SI RIPETONO -->
+  <xs:element name="datiManutenzione">
+    <xs:complexType>
+      <xs:sequence>
+
+		  <xs:element ref="checkList"/>
+          <xs:element ref="datiTecnico"/>
+		  
+          <xs:element name="dettManutenzione">
+    		<xs:complexType>
+    			<xs:sequence>
+                       <xs:element name="A_E_numCG" type="xs:integer" minOccurs="1" maxOccurs="unbounded"/>
+    			</xs:sequence>
+    		</xs:complexType>
+	     </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+
+  <xs:element name="rowAllegatoII">
+    <xs:complexType>
+      <xs:sequence>
+         <xs:element name="A_E_numGT" type="xs:integer" minOccurs="1" maxOccurs="1"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  
+  <!-- F. CHECK LIST -->
+   <xs:element name="checkList">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_F_osservazioni" type="Note1000"/>
+          <xs:element name="A_F_raccomandazioni" type="Note1000"/>
+          <xs:element name="A_F_prescrizioni" type="Note1000"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+
+  <!-- sezione dati del tecnico -->
+   <xs:element name="datiTecnico">
+	<xs:complexType>
+		<xs:sequence>
+          <xs:element name="A_F_dataIntervento" type="xs:date" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_F_orarioArrivo" type="xs:string"/>
+          <xs:element name="A_F_orarioPartenza" type="xs:string"/>
+          <xs:element name="A_F_nomeTecnico" type="xs:string" minOccurs="1" maxOccurs="1"/>
+          <xs:element name="A_F_cognomeTecnico" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	 </xs:complexType>
+	</xs:element>
+	
+
+	
+	<xs:simpleType name="Note1000">
+		    <xs:restriction base="xs:string">
+			     <xs:maxLength value="1000"/>
+		    </xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>

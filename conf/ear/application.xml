@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	version="1.4" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+  <display-name>sigitext</display-name>
+
+  <!-- moduli relativi ai vari binding -->
+  
+  
+  	
+  	<!-- ejb module relativo alla PA del servizio con codice binding=ejbpa. -->
+	<module>
+		<ejb>appl-sigitext-ejbpa.jar</ejb>
+  	</module>
+  	
+  	
+    
+  	<!-- web module relativo al front-adapter web-services della PA con codice binding=wsfad. --> 
+  	<module>
+    	<web> 
+      		<web-uri>appl-sigitext-wsfad.war</web-uri>
+     		<context-root>sigitextApplSigitextWsfad</context-root>
+    	</web>
+  	</module>
+  	
+  
+	<module>
+		<ejb>sigitext-startup.sar</ejb>
+	</module>
+  
+</application>

@@ -1,0 +1,74 @@
+name@version *;license *;copyrights *;end-of-support;dependencies;language;repository;email;URL
+activation-1.0.2.jar;CDDL-1.0;-;-;-;Java;-;-;-
+aopalliance-1.0.jar;Public Domain;-;-;-;Java;-;-;-
+axis-1.4.csi-1.0.0.jar;Libreria personalizzata CSI basata su Apache-2.0;-;-;-;Java;-;-;-
+axis-ant-1.4.jar;Apache-2.0;-;-;-;Java;-;-;-
+axis-jaxrpc-1.4.jar;Apache-2.0;-;-;-;Java;-;-;-
+bcprov-jdk15on-155.jar;BouncyCastle License;The Bouncy Castle ;#N/D;#N/D;Java;#N/D;#N/D;#N/D
+bsh-1.2b7.jar;LGPL-2.1;-;-;-;Java;-;-;-
+cglib-nodep-2.1_3.jar;Apache-2.0;-;-;-;Java;-;-;-
+commons-codec-1.7.jar;Apache-2.0;-;-;-;Java;-;-;-
+commons-discovery-0.2.jar;Apache-1.1;"""This product includes software developed by the Apache Software Foundation (http://www.apache.org/).""";-;-;Java;-;-;-
+commons-httpclient-3.1.jar;Apache-2.0;-;-;-;Java;-;-;-
+commons-lang-2.4.jar;Apache-2.0;-;-;-;Java;-;-;-
+commons-logging-1.0.4.jar;Apache-2.0;-;-;-;Java;-;-;-
+coop-diag-1.2.1.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+coop-trace-1.2.0.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+csi-apachesoap-1.4.5.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+csi-core-1.4.5.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+csi-ejb-1.4.5.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+csi-ejb-weblogic-1.4.5.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+csi-rmi-1.4.5.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+csi-stadapter-1.4.5.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+csi-tools-1.4.5.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;http://opensource.org/licenses/BSD-3-Clause
+dom-1.0.jar;Apache-2.0;-;-;-;Java;-;-;-
+ecmengine-common-6.2.0.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+ecmengine-ws-client-6.6.0.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+ejb-2.1.jar;Libreria Java di Base;-;-;-;Java;-;-;-
+htmpl-1.3.2.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+itext-2.1.7.jar;MPL-1.1;-;-;-;Java;-;-;https://github.com/javaee/jax-ws-spec/blob/master/LICENSE.md
+jaas-1.0.jar;Apache;-;-;-;Java;-;-;https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
+jackson-core-2.9.9.jar;Apache-2.0;-;-;-;Java;-;-;-
+jackson-databind-2.9.9.jar;Apache-2.0;-;-;-;Java;-;-;-
+jakarta-oro-2.0.8.jar;Apache-2.0;-;-;-;Java;-;-;http://svn.apache.org/repos/asf/tiles/framework/tags/tiles-parent-3.0.5/OGNL-LICENSE.txt
+java-jwt-3.3.0.jar;MIT;-;-;-;Java;-;-;https://raw.githubusercontent.com/auth0/java-jwt/master/LICENSE
+javaee-api-5.0-1.jar;"CDDL-1.0; GPL-2.0";-;-;-;Java;-;-;-
+jax-qname-1.0.jar;CDDL-1.1;-;-;-;Java;-;-;-
+jaxb-api-1.0.jar;CDDL-1.0;-;-;-;Java;-;-;-
+jaxb-libs-1.0.jar;CDDL-1.0;-;-;-;Java;-;-;-
+jaxb-ri-1.0.jar;CDDL-1.0;-;-;-;Java;-;-;-
+jaxb-xjc-1.0.jar;CDDL-1.0;-;-;-;Java;-;-;-
+jaxp-1.2.2.jar;Libreria Java di Base;-;-;-;Java;-;-;-
+jboss-j2ee-4.3.0.jar;EPL;-;-;-;Java;-;-;-
+jboss-servlet-api-4.3.0.jar;"CDDL; GPL-2.0 w/cpe";-;-;-;Java;-;-;-
+jbossall-client-4.3.0.jar;LGPL-2.1;RedHat Inc.;-;-;Java;-;-;http://www.java2s.com/Code/Jar/j/Downloadjbossallclient430jar.htm
+jms-1.0.2b.jar;Libreria Java di Base;-;-;-;Java;-;-;-
+jndi-1.2.1.jar;Libreria Java di Base;-;-;-;Java;-;-;-
+junit-3.8.1.jar;CPL-1.0;-;-;-;Java;-;-;-
+log4j-1.2.15.jar;Apache-2.0;-;-;-;Java;-;-;-
+mail-1.2.jar;Libreria Java di Base;-;-;-;Java;-;-;-
+msgadp-jaxb-1.0.1.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+msgadp-jaxb-tools-1.0.1.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+oscore-2.2.5.jar;The OpenSymphony Software License 1.1;Copyright © 2001-2004 The OpenSymphony Group. All rights reserved.;-;-;Java;-;-;-
+osworkflow-2.8.0.jar;The OpenSymphony Software License 1.1;Copyright © 2001-2004 The OpenSymphony Group. All rights reserved.;-;-;Java;-;-;-
+policymansrv-client-2.0.0.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+propertyset-1.4.jar;Apache-2.0;-;-;-;Java;-;-;-
+resolver-2.6.2.jar;Apache-2.0;Apache Foundation;-;-;Java;-;-;-
+saaj-1.2.jar;CDDL-1.0;-;-;-;Java;-;-;-
+sax-2.0.jar;Libreria Java di Base;-;-;-;Java;-;-;-
+servlet-2.4.jar;"CDDL; GPL-2.0";-;-;-;Java;-;-;-
+soap-2.3.1.jar;Libreria Java di Base;-;-;-;Java;-;-;-
+spring-core-3.1.1.RELEASE.jar;Apache-2.0;-;-;-;Java;-;-;-
+svcflow-1.2.1.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+token-retry-2.0.0.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+token-retry-plugin-axis1.4-2.0.0.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+util-beanlocatorfactory-1.0.1.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+util-perf-1.0.0.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+wsadp-2.1.0.jar;"Apache-2.0; MIT (Rilasciata da CSI Piemonte su richiesta)";CSI-Piemonte;-;-;Java;-;-;-
+wsdl4j-1.5.1.jar;CPL-1.0;-;-;-;Java;-;-;-
+xalan-2.3.1.jar;Apache-2.0;-;-;-;Java;-;-;-
+xercesImpl-2.0.1.jar;Apache-2.0;-;-;-;Java;-;-;-
+xercesImpl-2.6.2.jar;Apache-2.0;-;-;-;Java;-;-;-
+xml-apis-2.6.2.jar;Apache-2.0;-;-;-;Java;-;-;-
+xmlbeans-2.4.0.jar;Apache-2.0;-;-;-;Java;-;-;-
+xsltc-2.3.1.jar;Apache-2.0;-;-;-;Java;-;-;-

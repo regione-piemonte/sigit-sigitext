@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir=".." default="default" name="xmlbean-generate">
+  <description>Generatore di sorgenti da file XSD tramite XmlBean</description>
+  
+    <property file="buildfiles/xmlbean-generate.properties" />
+	
+	<path id="library.ref">
+		<fileset dir="./lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>  	  	
+
+	<taskdef name="xmlbean" 
+  		   classname="org.apache.xmlbeans.impl.tool.XMLBean" 
+  		   classpathref="library.ref" />
+  
+	<target name="default" depends="clean,init">
+  		<xmlbean  			
+  			srcgendir="${xmlbean.src.generated.dir}"
+  			destfile="lib/${xmlbean.generated.jar.name}"
+  			javasource="1.5"
+  			classpathref="library.ref" 
+  			includeJavaRuntime="yes"
+  		>
+  			<fileset dir="${xsd.resources.path}" includes="${schema.listfiles}"/>
+  			<fileset dir="${xsd.resources.common.path}" includes="${schema.common.listfiles}"/>
+  		</xmlbean>  		  	
+	</target>
+  
+	<target name="init">
+  		<mkdir dir="${xmlbean.src.generated.dir}" />
+  	</target>
+  
+    <!--  -->
+ 	<target name="clean">
+  		<delete dir="${xmlbean.src.generated.dir}" />
+  	</target>
+  
+</project>
